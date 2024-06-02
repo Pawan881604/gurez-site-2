@@ -1,0 +1,12 @@
+.cat-inbox-select{
+    padding:5px !important;
+    max-width: 250px;
+    overflow-y: scroll !important;
+    height: 250px;
+}
+.cat-inbox-select ul{
+    padding:4px 15px 16px;
+}
+.cat-inbox-select > div{
+    padding: 20px;
+}
