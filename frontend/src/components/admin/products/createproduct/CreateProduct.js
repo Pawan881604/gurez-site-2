@@ -15,13 +15,13 @@ import generateUuid from "../../../../utils/Uuidv4";
 import Seo_Handler from "../../../../utils/seo/Seo_Handler";
 import { create_seo } from "../../../../actions/SeoAction";
 import { Box, TextField } from "@mui/material";
-import Draft_wysiwyg from "../../../../utils/Editor/Draft_wysiwyg";
-import ProductTab from "../../../../utils/product_options/ProductTab";
+import ProductTab from "../../../../utils/product_options/create_options/ProductTab";
 import Publish_status from "../../../../utils/publish_status/Publish_status";
 import Sidebar_categories from "../../../../utils/sidebar_categorie/Sidebar_categories";
 import Tags from "../../../../utils/tags/Tags";
 import Featured_Image from "../../../../utils/featured_image/Featured_Image";
 import Image_card from "../../../../utils/Image_card/Image_card";
+import Jodit_Editor from "../../../../utils/Editor/Jodit_Editor";
 
 export const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -259,9 +259,10 @@ export const CreateProduct = () => {
                           onChange={(e) => setTitle(e.target.value)}
                         />
                         <div>
-                          <Draft_wysiwyg
-                            box_class={"control-editor-content"}
+                          <Jodit_Editor
+                            height={700}
                             getcontent={setArticle}
+                            content={article}
                           />
                         </div>
                         <div className="attribute-tab">
@@ -281,12 +282,12 @@ export const CreateProduct = () => {
                           />
                         </div>
                         <div>
-                          <Draft_wysiwyg
-                            box_class={"control-editor-discription"}
+                          <Jodit_Editor
+                            height={400}
                             getcontent={setContent}
+                            content={content}
                           />
                         </div>
-                        {/* <CK_Calssic_Editor style_editor={"content"} /> */}
 
                         <Seo_Handler
                           seo_data={seo_data}
@@ -308,7 +309,7 @@ export const CreateProduct = () => {
                       cat_status={"product-cat"}
                     />
                     <Image_card />
-                    {/* <Categore setSelectedCategoryId={setSelectedCategoryId} /> */}
+
                     <Tags />
                     <Featured_Image />
                   </div>

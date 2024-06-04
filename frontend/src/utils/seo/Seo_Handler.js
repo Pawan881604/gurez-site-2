@@ -17,7 +17,6 @@ const Seo_Handler = ({
 
   useMemo(() => {
     if (seo_data && !seo_input_value.seo_title) {
-      const url = seo_data.title.split(" ").join("-");
       // set_seo_input_value({
       //   seo_title: seo_data && seo_data.title,
       //   seo_slug: url,

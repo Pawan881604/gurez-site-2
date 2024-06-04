@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import {Typography,Tab,Tabs,Box} from "@mui/material";
-import Loader from "../../../layout/loader/Loader";
+// import Loader from "../../../layout/loader/Loader";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";

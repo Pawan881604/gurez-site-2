@@ -9,7 +9,7 @@ import {
   singleBlogPost,
   UpdateBlogPost,
 } from "../../../../actions/BlogPostAction";
-import MyEditor from "../../products/productUpdateform/classiceditor/MyEditor";
+// import MyEditor from "../../products/productUpdateform/classiceditor/MyEditor";
 import Categore from "./assets/Categore";
 import { UPDATE_BLOG_POST_RESET } from "../../../../constants/BlogPostConstants";
 import { Button } from "@material-ui/core";
@@ -145,10 +145,10 @@ const UpdatePost = () => {
                       <div className="input-field-area">
                         <label htmlFor="description">description</label>
                         <div>
-                          <MyEditor
+                          {/* <MyEditor
                             valuedata={description}
                             getData={setDescription}
-                          />
+                          /> */}
                         </div>
                       </div>
 

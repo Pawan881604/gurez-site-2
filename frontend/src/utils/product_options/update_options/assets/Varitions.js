@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { v4 as uuidv4, v4 } from "uuid";
-import generateUuid from "../../../../../utils/Uuidv4";
 import { useSelector } from "react-redux";
 import { object } from "prop-types";
+import generateUuid from "../../../Uuidv4";
 
 const Varitions = ({
   Variations,

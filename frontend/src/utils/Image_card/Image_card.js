@@ -54,7 +54,7 @@ const Image_card = ({selectedImage}) => {
                   key={i}
                 >
                   {item._id !== checkPrimary ? (
-                      <img src={item.url} alt="jgjg" />
+                      <img src={item} alt="jgjg" />
                   ) : null}
                 </div>
               ))}
