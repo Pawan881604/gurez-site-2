@@ -13,9 +13,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Categories_list = ({
-  selectedIndices,
+  selectedIndices =[],
   setSelectedIndices,
-  sub_selectedIndices,
+  sub_selectedIndices=[],
   set_sub_SelectedIndices,
   cat_status,
 }) => {

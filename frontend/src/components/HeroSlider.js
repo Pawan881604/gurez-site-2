@@ -1,5 +1,5 @@
 import React from "react";
-import "./Heroslider.css";
+// import "./Heroslider.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -28,7 +28,7 @@ const HeroSlider = () => {
   ];
   return (
     <section>
-      <div className="slider-containor">
+      <div >
         <Slider {...settings}>
           {images &&
             images.map((item, i) => (

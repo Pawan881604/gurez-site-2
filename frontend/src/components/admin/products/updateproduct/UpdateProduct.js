@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  ClearError,
   GetAllProductLabelAction,
   GetProductAttributeAction,
   getProductDetails,
@@ -20,6 +21,7 @@ import Image_card from "../../../../utils/Image_card/Image_card";
 import Tags from "../../../../utils/tags/Tags";
 import Featured_Image from "../../../../utils/featured_image/Featured_Image";
 import Jodit_Editor from "../../../../utils/Editor/Jodit_Editor";
+import { UPDATE_PRODUCT_RESET } from "../../../../constants/ProductConstants";
 
 const UpdateProduct = () => {
   const dispatch = useDispatch();
@@ -88,8 +90,8 @@ const UpdateProduct = () => {
   };
 
   const getCurrentImage = () => {
-    const imageIds = images && images.map((item) => item._id);
-    const oldIds = oldImage && oldImage.map((item) => item._id);
+    const imageIds = images && images.map((item) => item.url);
+    const oldIds = oldImage && oldImage.map((item) => item);
     if (imageIds && imageIds.length !== 0) {
       return imageIds;
     } else {
@@ -97,7 +99,7 @@ const UpdateProduct = () => {
     }
   };
 
-  const currentImageArray = getCurrentImage();
+  // const currentImageArray = getCurrentImage();
 
   useMemo(() => {
     // if (product && product._id !== id) {
@@ -142,10 +144,10 @@ const UpdateProduct = () => {
     }
 
     // setVariations(product && product.product_description )
-    // if (updateError) {
-    //   alert.error(updateError);
-    //   dispatch(ClearError());
-    // }
+    if (updateError) {
+      alert.error(updateError);
+      dispatch(ClearError());
+    }
     // if (imageError) {
     //   alert.error(imageError);
     //   dispatch(clearErrors());
@@ -155,11 +157,11 @@ const UpdateProduct = () => {
     //   dispatch(ClearError());
     // }
 
-    // if (isUpdate) {
-    //   alert.success("product updated");
-    //   Navigate("/admin/all-products");
-    //   dispatch({ type: UPDATE_PRODUCT_RESET });
-    // }
+    if (isUpdate) {
+      alert.success("product updated");
+      Navigate("/admin/all-products");
+      dispatch({ type: UPDATE_PRODUCT_RESET });
+    }
     dispatch(GetAllProductLabelAction());
     dispatch(GetProductAttributeAction(""));
   }, [
@@ -180,7 +182,6 @@ const UpdateProduct = () => {
     const currentImageArray = getCurrentImage();
 
     let VariationData = Variations ? Variations : postmeta && postmeta;
-    console.log(VariationData);
     dispatch(
       updateAdminProduct(
         id,
@@ -190,10 +191,15 @@ const UpdateProduct = () => {
         content,
         VariationData,
         inputValue,
-        currentImageArray
+        currentImageArray ? currentImageArray : []
       )
     );
   };
+
+
+  console.log(product )
+
+
 
   return (
     <>

@@ -78,6 +78,7 @@ import Login_Form from "./components/user/Login_Form";
 import SignUp_Form from "./components/user/SignUp_Form";
 import Banners from "./components/admin/Home/banners/Banners";
 import Add_New_Banner from "./components/admin/Home/banners/Add_New_Banner";
+import Index from "./site/Index";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -111,7 +112,7 @@ function App() {
           <div className="page">
             <div className="main">
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Index />} />
                 <Route path="/sign-in" element={<Login_Form />} />
                 <Route path="/sing-up" element={<SignUp_Form />} />
                 <Route path="/contact-us" element={<ContactUs />} />

@@ -7,7 +7,7 @@ import { useAlert } from "react-alert";
 import CoupenSection from "./assets/CoupenSection";
 import MetaData from "../layout/metaData/MetaData";
 import Cards from "./assets/Cards";
-import HeroSlider from "./assets/HeroSlider";
+// import HeroSlider from "../HeroSlider";
 import NewProducts from "./assets/NewProducts";
 import SaleSection from "./SaleSection";
 import ProductAnimation from "../layout/loader/ProductAnimation";
@@ -58,7 +58,7 @@ export const Home = () => {
         content={"Discover toy fectory"}
         keywords={"toys"}
       />
-      {windowWidth < 768 ? <MobileSlider /> : <HeroSlider />}
+      {/* {windowWidth < 768 ? <MobileSlider /> : <HeroSlider />} */}
       <Cards />
       <section id="homepage" className="section-cont">
         <div className="coll-title">

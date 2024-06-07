@@ -80,12 +80,12 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
   // let generalPrice = JSON.parse(general_Price);
   let variationData = JSON.parse(variation);
   const url = await url_formet(slug);
- 
+
   const user = req.user.id;
   let hasVariationData = Object.keys(variationData).length > 0;
   let postMetaData;
 
-  const existing = await products.findOne({ slug:url });
+  const existing = await products.findOne({ slug: url });
   if (existing) {
     return next(
       new ErrorHandler(
@@ -136,7 +136,6 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
   //   });
   // }
 
-
   if (variationData.meta_value) {
     variationData.meta_value.filter((item) => {
       const key = Object.keys(item)[0];
@@ -176,10 +175,14 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
 //----------get all produts
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const resultPerpage = 6;
-  const count_query = req.query.product_category?{product_category:req.query.product_category}:{product_subcategory:req.query.product_subcategory}
-  const filter_count = await products.find(count_query?count_query:'');
-  const productCount = filter_count.length ===0 ?await products.countDocuments():filter_count.length;
-  
+  const count_query = req.query.product_category
+    ? { product_category: req.query.product_category }
+    : { product_subcategory: req.query.product_subcategory };
+  const filter_count = await products.find(count_query ? count_query : "");
+  const productCount =
+    filter_count.length === 0
+      ? await products.countDocuments()
+      : filter_count.length;
 
   const newProducts = [];
   const apiFetures = new ApiFetures(products.find(), req.query)
@@ -301,21 +304,13 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     subcategory,
     category,
   } = req.body;
+console.log(req.body)
+  const url = await url_formet(slug);
 
-  const url = title.split(" ").join("-");
   const maxPrice =
     product_Type === "Simple product" ? product_regular_price : 0;
   const minPrice = product_Type === "Simple product" ? product_sale_price : 0;
 
-  // // else {
-  // //   Products.product_regular_price = product_regular_price;
-  // //   Products.product_sale_price = product_sale_price;
-  // // }
-
-  // // else {
-  // //   updatedProduct.product_regular_price = product_regular_price;
-  // //   updatedProduct.product_sale_price = product_sale_price;
-  // // }
   const data = {
     product_uuid: product_uuid && product_uuid,
     product_name: title,
@@ -331,7 +326,7 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     product_Shipping_class: Shipping_class,
     product_category: category,
     product_subcategory: subcategory,
-    product_images: imageIds,
+    // product_images: imageIds,
     product_regular_price: maxPrice,
     product_sale_price: minPrice,
     Default_value,
@@ -343,57 +338,58 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     useFindAndModify: false,
     overwrite: true,
   });
+  console.log(updatedProduct)
   //------------------------
-  let variationData = JSON.parse(variation);
-  let hasVariationData = Object.keys(variationData).length > 0;
-  let postMetaData;
-  if (variationData.meta_value) {
-    variationData.meta_value.filter((item) => {
-      const key = Object.keys(item)[0];
-      if (key === Default_value) {
-        updatedProduct.product_regular_price = item[key][0].regular_price;
-        updatedProduct.product_sale_price = item[key][0].sale_price;
-      }
-    });
+  // let variationData = JSON.parse(variation);
+  // let hasVariationData = Object.keys(variationData).length > 0;
+  // let postMetaData;
+  // if (variationData.meta_value) {
+  //   variationData.meta_value.filter((item) => {
+  //     const key = Object.keys(item)[0];
+  //     if (key === Default_value) {
+  //       updatedProduct.product_regular_price = item[key][0].regular_price;
+  //       updatedProduct.product_sale_price = item[key][0].sale_price;
+  //     }
+  //   });
 
-    //   // Products.product_regular_price=defaultValue[0]
-    //   // Products.product_sale_price=
-    // } else {
-  }
+  //   //   // Products.product_regular_price=defaultValue[0]
+  //   //   // Products.product_sale_price=
+  //   // } else {
+  // }
 
-  if (hasVariationData) {
-    const isExist = await postMeta.findOne({
-      meta_uuid: variationData.meta_uuid,
-    });
+  // if (hasVariationData) {
+  //   const isExist = await postMeta.findOne({
+  //     meta_uuid: variationData.meta_uuid,
+  //   });
 
-    const data = {
-      item_id: product_uuid,
-      meta_uuid: variationData.meta_uuid,
-      meta_key: variationData.meta_key,
-      meta_value: variationData.meta_value,
-    };
+  //   const data = {
+  //     item_id: product_uuid,
+  //     meta_uuid: variationData.meta_uuid,
+  //     meta_key: variationData.meta_key,
+  //     meta_value: variationData.meta_value,
+  //   };
 
-    if (isExist) {
-      postMetaData = await postMeta
-        .findOneAndUpdate({ meta_uuid: variationData.meta_uuid }, data, {
-          new: true,
-          runValidators: true,
-          useFindAndModify: false,
-          overwrite: true,
-        })
-        .exec();
-    } else {
-      postMetaData = await postMeta.create(data);
-    }
-    // await updatedProduct.save();
-  } else {
-    updatedProduct.product_regular_price = product_regular_price;
-    updatedProduct.product_sale_price = product_sale_price;
-  }
+  //   if (isExist) {
+  //     postMetaData = await postMeta
+  //       .findOneAndUpdate({ meta_uuid: variationData.meta_uuid }, data, {
+  //         new: true,
+  //         runValidators: true,
+  //         useFindAndModify: false,
+  //         overwrite: true,
+  //       })
+  //       .exec();
+  //   } else {
+  //     postMetaData = await postMeta.create(data);
+  //   }
+  //   // await updatedProduct.save();
+  // } else {
+  //   updatedProduct.product_regular_price = product_regular_price;
+  //   updatedProduct.product_sale_price = product_sale_price;
+  // }
 
-  updatedProduct.product_meta_uuid = postMetaData.meta_uuid;
-  await updatedProduct.save();
-  // await generateSitemap();
+  // updatedProduct.product_meta_uuid = postMetaData.meta_uuid;
+  // await updatedProduct.save();
+  // // await generateSitemap();
 
   res.status(200).json({
     success: true,

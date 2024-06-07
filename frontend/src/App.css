@@ -1,35 +1,3 @@
-/******************************************************************
-  Theme Name: ---
-  Description: e-commerce tamplate
-  Author: Pawan Sharma
-  Version: 1.0
-  Created: Colorib
-******************************************************************/
-
-/*------------------------------------------------------------------
-[Table of contents]
-
-1.  Template default CSS
-	1.1	Variables
-	1.2	Mixins
-	1.3	Flexbox
-	1.4	Reset
-2.  Helper Css
-3.  Header Section
-4.  Hero Section
-5.  Banner Section
-6.  Product Section
-7.  Intagram Section
-8.  Latest Section
-9.  Contact
-10.  Footer Style
--------------------------------------------------------------------*/
-
-/*----------------------------------------*/
-
-/* Template default CSS
-/*----------------------------------------*/
-
 * {
   box-sizing: border-box;
 }
@@ -50,7 +18,7 @@ body {
   font-family: "Mulish", sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0px;
-  background: var(--home-white);
+  background: #edeec9;
 }
 
 h1,
@@ -113,16 +81,7 @@ p {
   font-size: 16px;
 }
 
-a {
-  font-size: 15px;
-  color: #000;
-  line-height: 20px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  transition: all 0.3s ease-in-out;
-  text-decoration: none;
-  font-size: 16px;
-}
+
 img {
   max-width: 100%;
 }
@@ -443,3 +402,45 @@ input[type="number"] {
     line-height: calc(1.4 * (1 + (1 - 2) / 25));
   }
 }
+
+
+/* //-------------- default screen ---------------------- */
+
+/* .default-screen{
+  max-width: cust;
+} */
+
+/* //-------------- default screen ---------------------- */
+/* //----------home page-slider---------------------// */
+
+.slider-containor img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.slider-containor {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.slider-containor:hover .custom-arrow {
+  display: flex;
+}
+.custom-arrow {
+  position: absolute;
+  z-index: 5;
+  padding: 10px;
+  border-radius: 100px;
+  color: #74c22a;
+  top: 50%;
+  background: linear-gradient(-270deg, rgb(234 237 237 / 25%), #f5f5f5b3);
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  transform: translateY(-50%);
+  display: none;
+}
+.custom-next-arrow {
+  right: 0px;
+}
+
+/* //----------home page-end ---------------------// */

@@ -78,7 +78,6 @@ import axiosInstance from "../utils/AxiosInstance";
 export const getProduct =
   (currentPage = 1, price = [0, 1000], categorie, subcategory, discount = 0) =>
   async (dispatch) => {
-  
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
       let link = `${server_url()}/api/v1/products?page=${currentPage}&product_sale_price[gte]=${
@@ -236,13 +235,12 @@ export const adminGetAllProducts = () => async (dispatch) => {
 export const createNewProduct =
   (productData, VariationData, imageIds, subcheckedItems, checkedItems) =>
   async (dispatch) => {
-   
     try {
       dispatch({ type: NEW_PRODUCT_REQUEST });
       const VariationJsonData = JSON.stringify(VariationData);
       const formData = new FormData();
       formData.append("variation", VariationJsonData);
-      formData.append("imageId",imageIds);
+      formData.append("imageId", imageIds);
       // for (let i = 0; i < imageIds.length; i++) {
       //   formData.append("imageId", String(imageIds[i]));
       // }
@@ -334,11 +332,13 @@ export const updateAdminProduct =
       for (let i = 0; i < checkedItems.length; i++) {
         formData.append("category", String(checkedItems[i]));
       }
+
       const { data } = await axiosInstance.put(
         `${server_url()}/api/v1/product/${id}`,
         formData,
         others_method()
       );
+
       dispatch({
         type: UPDATE_PRODUCT_SUCCESS,
         payload: data,
