@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Loader from "../../../layout/loader/Loader";
 import { server_url } from "../../../../utils/Url";
-
+import Loader from "../../../../utils/loader/Loader";
 const Bestselling = () => {
   const { products } = useSelector((state) => state.products);
   const { loading, product } = useSelector((state) => state.productFeature);

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 import { v4 as uuidv4, v4 } from "uuid";
+// import generateUuid from "../../../../../utils/Uuidv4";
+// generateUuid
 import { useSelector } from "react-redux";
 import { object } from "prop-types";
 import generateUuid from "../../../Uuidv4";
@@ -198,6 +200,7 @@ const Varitions = ({
             {inputProductValue &&
               inputProductValue.map((item, i) => (
                 <div key={i} className="tab-att-general">
+                  {console.log(item)}
                   <div className="tab-att-header">
                     <div className="tab-att-tittle">
                       <p>{updatedvaritionsName[i]}</p>

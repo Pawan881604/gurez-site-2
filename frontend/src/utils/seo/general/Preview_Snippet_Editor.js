@@ -13,7 +13,9 @@ import { IoDesktopOutline } from "react-icons/io5";
 import { CiMobile2 } from "react-icons/ci";
 import { IoIosMic } from "react-icons/io";
 import urlConverter from "../../Url_converter";
-import { CharCount } from "../../../components/layout/CharCount/CharCount";
+import { CharCount } from "../../CharCount/CharCount";
+
+
 const Preview_Snippet_Editor = ({
   open,
   setOpen,

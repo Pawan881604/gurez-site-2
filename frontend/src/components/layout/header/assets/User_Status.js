@@ -2,10 +2,12 @@ import { Menu, MenuItem } from "@mui/material";
 import React from "react";
 import { FaUser } from "react-icons/fa6";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LogoutUser } from "../../../../actions/UserAction";
+// import { LogoutUser } from "../../../actions/UserAction";
 import { useAlert } from "react-alert";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@mui/material";
+import { LogoutUser } from "../../../../actions/UserAction";
+
 const User_Status = ({ user, loading }) => {
   const Navigate = useNavigate();
   const alert = useAlert();

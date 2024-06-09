@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getAllImages } from "../../actions/imageGelleryAction";
-import ImageUploaderForm from "../../components/admin/ImageGellery/uploadimage/ImageTabToggle";
+import ImageUploaderForm from "../../admin/ImageGellery/uploadimage/ImageTabToggle";
 const Featured_Image = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllImages, imagePrimary } from "../../actions/imageGelleryAction";
 import { Button } from "@mui/material";
-import ImageUploaderForm from "../../components/admin/ImageGellery/uploadimage/ImageTabToggle";
+import ImageUploaderForm from "../../admin/ImageGellery/uploadimage/ImageTabToggle";
 const Image_card = ({selectedImage}) => {
   const [open, setOpen] = useState(false);
   const [checkPrimary, setcheckPrimary] = useState("");

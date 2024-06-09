@@ -13,10 +13,10 @@ module.exports = (err, req, res, next) => {
   }
 
   //Mongo dublicate key errors
-  if (err.code === 11000) {
-    const message = `Dublicate ${Object.keys(err.keyValue)} Entered`;
-    err = new ErrorHandler(message, 400);
-  }
+  // if (err.code === 11000) {
+  //   const message = `Dublicate ${Object.keys(err.keyValue)} Entered`;
+  //   err = new ErrorHandler(message, 400);
+  // }
 
   //Wrong jwt error
   if (err.name === "JsonWebTokenError") {

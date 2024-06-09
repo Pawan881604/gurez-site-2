@@ -40,15 +40,17 @@ class ApiFetures {
     const removeField = ["keyword", "page", "limit"];
     removeField.forEach((key) => delete queryCopy[key]);
 
-    // Add discount filter
-    // if (queryCopy.discount) {
-    //     const discountPercentage = parseInt(queryCopy.discount); // Convert the discount to an integer
-    //     const discountValue = (discountPercentage / 100); // Convert percentage to a decimal value
-
-    //     // Filter for products with a discount greater than or equal to the specified percentage
-    //     queryCopy.discount = { $gte: discountValue };
-    // }
-    // console.log(queryCopy)
+    // Handle seo_link filter explicitly if present
+    if (queryCopy.seo_link) {
+      queryCopy.seo_link = { $regex: queryCopy.seo_link, $options: "i" };
+    }
+    // single product filter using url
+    if (queryCopy.slug) {
+      queryCopy.slug = { $regex: queryCopy.slug, $options: "i" };
+    }
+    if (queryCopy.product_uuid) {
+      queryCopy.product_uuid = { $regex: queryCopy.product_uuid, $options: "i" };
+    }
     // Filter price and ratings
     let queryStr = JSON.stringify(queryCopy);
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);

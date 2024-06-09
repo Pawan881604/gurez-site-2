@@ -5,15 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Product from "./assets/ProductCard";
 import { useAlert } from "react-alert";
 import CoupenSection from "./assets/CoupenSection";
-import MetaData from "../layout/metaData/MetaData";
+import MetaData from "../../utils/metaData/MetaData";
 import Cards from "./assets/Cards";
-// import HeroSlider from "../HeroSlider";
 import NewProducts from "./assets/NewProducts";
 import SaleSection from "./SaleSection";
-import ProductAnimation from "../layout/loader/ProductAnimation";
 import Deli from "./assets/Deli";
 import MobileSlider from "./assets/MobileSlider";
-
+import ProductAnimation from "../../utils/loader/ProductAnimation";
 export const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();

@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  nav_main_list,
-  nav_sub_list,
-} from "../../../../actions/CategoreAction";
+
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { nav_main_list,nav_sub_list } from "../../../../actions/CategoreAction";
 
 export const NavList = ({ toggleContentRemove }) => {
   const [visible, setVisible] = useState(null);

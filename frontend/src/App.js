@@ -8,78 +8,81 @@ import {
 import { Header } from "./components/layout/header/Header";
 import { Home } from "./components/home/Home";
 import { Footer } from "./components/layout/footer/Footer";
-import Shop from "./components/shop/Shop";
-import ProductDetails from "./components/productDetails/ProductDetails";
+import Shop from "./site/shop/Shop";
+import ProductDetails from "./site/productDetails/ProductDetails";
 
 import { useEffect, useState } from "react";
 import store from "./store";
 import { LoadUser } from "./actions/UserAction";
-import Loader from "./components/layout/loader/Loader";
+// import Loader from ".//loader/Loader";
+// Loader
 import { useSelector } from "react-redux";
-import { ProtectedRoute } from "./components/route/ProtectedRoute";
-import { UpdateProfile } from "./components/account/assets/UpdateProfile";
-import PasswordUpdate from "./components/account/assets/PasswordUpdate";
-import Cart from "./components/cart/Cart";
-import { Shipping } from "./components/shipping/Shipping";
-import { ConfirmStep } from "./components/shipping/assets/ConfirmStep";
-import ProccessPaymentStep from "./components/shipping/assets/ProccessPaymentStep";
-import { OrderSuccess } from "./components/order/OrderSuccess";
-import { OrderMe } from "./components/order/OrderMe";
-import { OrderDetails } from "./components/order/assets/OrderDetails";
-import { Dashboard } from "./components/admin/dashboard/Dashboard";
-import { AllProducts } from "./components/admin/products/allproducts/AllProducts";
-import { CreateProduct } from "./components/admin/products/createproduct/CreateProduct";
-import UpdateProduct from "./components/admin/products/updateproduct/UpdateProduct";
-import OrderList from "./components/admin/orders/orderlist/OrderList";
-import { UpdateOrders } from "./components/admin/orders/updateorders/UpdateOrders";
-import { AllUsers } from "./components/admin/users/allusers/AllUsers";
-import UpdateUser from "./components/admin/users/updateuser/UpdateUser";
-import { Reviews } from "./components/admin/productreviews/reviews/Reviews";
-import AllImages from "./components/admin/ImageGellery/allImages/AllImages";
-import PrivacyPolicy from "./components/layout/PrivacyPolicy";
-import TermsAndConditions from "./components/layout/TermsAndConditions";
-import Otpverification from "./components/user/Otpverification";
-import ErrorPage from "./components/404Page/ErrorPage";
+import { ProtectedRoute } from "./site/route/ProtectedRoute";
+import { UpdateProfile } from "./site/account/assets/UpdateProfile";
+import PasswordUpdate from "./site/account/assets/PasswordUpdate";
+import Cart from "./site/cart/Cart";
+import { Shipping } from "./site/shipping/Shipping";
+import { ConfirmStep } from "./site/shipping/assets/ConfirmStep";
+import ProccessPaymentStep from "./site/shipping/assets/ProccessPaymentStep";
+import { OrderSuccess } from "./site/order/OrderSuccess";
+import { OrderMe } from "./site/order/OrderMe";
+import { OrderDetails } from "./site/order/assets/OrderDetails";
+import { Dashboard } from "./admin/dashboard/Dashboard";
+import { AllProducts } from "./admin/products/allproducts/AllProducts";
+import { CreateProduct } from "./admin/products/createproduct/CreateProduct";
+import UpdateProduct from "./admin/products/updateproduct/UpdateProduct";
+import OrderList from "./admin/orders/orderlist/OrderList";
+import { UpdateOrders } from "./admin/orders/updateorders/UpdateOrders";
+import { AllUsers } from "./admin/users/allusers/AllUsers";
+import UpdateUser from "./admin/users/updateuser/UpdateUser";
+import { Reviews } from "./admin/productreviews/reviews/Reviews";
+import AllImages from "./admin/ImageGellery/allImages/AllImages";
+import PrivacyPolicy from "./site/PrivacyPolicy";
+import TermsAndConditions from "./site/TermsAndConditions";
+import Otpverification from "./site/user/Otpverification";
+import ErrorPage from "./site/404Page/ErrorPage";
 import ErrorBoundary from "./utils/ErrorBoundary";
-import ForgetPassword from "./components/user/ForgetPassword";
-import ResetPassword from "./components/user/ResetPassword";
-import WishList from "./components/wishlist/WishList";
-import Category from "./components/shop/category/Category";
-import ContactUs from "./components/contact us/ContactUs";
+import ForgetPassword from "./site/user/ForgetPassword";
+import ResetPassword from "./site/user/ResetPassword";
+import WishList from "./site/wishlist/WishList";
+import Category from "./site/shop/category/Category";
+import ContactUs from "./site/contact us/ContactUs";
 import Producttracking from "./components/tracking/Producttracking";
 import Ordercancel from "./components/tracking/Ordercancel";
-import CreatePost from "./components/admin/post/createpost/CreatePost";
-import AllPost from "./components/admin/post/allpost/AllPost";
+import CreatePost from "./admin/post/createpost/CreatePost";
+import AllPost from "./admin/post/allpost/AllPost";
 
-import PaymentDetails from "./components/admin/orders/updateorders/assets/PaymentDetails";
-import AllCategory from "./components/admin/category/allCategory/AllCategory";
-import UpdateCategory from "./components/admin/category/updateCtegory/UpdateCategory";
+import PaymentDetails from "./admin/orders/updateorders/assets/PaymentDetails";
+import AllCategory from "./admin/category/allCategory/AllCategory";
+import UpdateCategory from "./admin/category/updateCtegory/UpdateCategory";
 import BottomNav from "./components/layout/BottomNav/BottomNav";
-import Editor from "./components/admin/editor/Editor";
-import ImageUploader from "./components/admin/ImageGellery/uploadimage/ImageUploader";
-import Blog from "./components/blog/allblog/Blog";
-import SingleBlog from "./components/blog/singleblog/SingleBlog";
-import UpdatePost from "./components/admin/post/update/UpdatePost";
-import AllSeo from "./components/admin/seo/allseo/AllSeo";
-import PostCategory from "./components/admin/post/category/PostCategory";
-import UpdateSubCategory from "./components/admin/category/updateCtegory/UpdateSubCategory";
-import Coupon from "./components/admin/marketing/coupon/Coupon";
-import Attribute from "./components/admin/products/attribute/Attribute";
-import ProductLabel from "./components/admin/products/attribute/label/ProductLabel";
-import AllCoupon from "./components/admin/marketing/coupon/AllCoupon";
-import BlogCategoryPage from "./components/blog/blogcategorypage/BlogCategoryPage";
-import UpdateAttribute from "./components/admin/products/attribute/update/UpdateAttribute";
-import UpdateAttributeLabel from "./components/admin/products/attribute/label/update/UpdateAttributeLabel";
-import GetContactDetails from "./components/admin/contact/GetContactDetails";
-import UserDashboard from "./components/account/UserDashboard";
-import CouponUpdate from "./components/admin/marketing/update/CoupenUpdate ";
-import SubCategory from "./components/shop/subcategory/SubCategory";
-import Login_Form from "./components/user/Login_Form";
-import SignUp_Form from "./components/user/SignUp_Form";
-import Banners from "./components/admin/Home/banners/Banners";
-import Add_New_Banner from "./components/admin/Home/banners/Add_New_Banner";
+import Editor from "./admin/editor/Editor";
+import ImageUploader from "./admin/ImageGellery/uploadimage/ImageUploader";
+import Blog from "./site/blog/allblog/Blog";
+import SingleBlog from "./site/blog/singleblog/SingleBlog";
+import UpdatePost from "./admin/post/update/UpdatePost";
+import AllSeo from "./admin/seo/allseo/AllSeo";
+import PostCategory from "./admin/post/category/PostCategory";
+import UpdateSubCategory from "./admin/category/updateCtegory/UpdateSubCategory";
+import Coupon from "./admin/marketing/coupon/Coupon";
+import Attribute from "./admin/products/attribute/Attribute";
+import ProductLabel from "./admin/products/attribute/label/ProductLabel";
+import AllCoupon from "./admin/marketing/coupon/AllCoupon";
+import BlogCategoryPage from "./site/blog/blogcategorypage/BlogCategoryPage";
+import UpdateAttribute from "./admin/products/attribute/update/UpdateAttribute";
+import UpdateAttributeLabel from "./admin/products/attribute/label/update/UpdateAttributeLabel";
+import GetContactDetails from "./admin/contact/GetContactDetails";
+import UserDashboard from "./site/account/UserDashboard";
+// UserDashboard
+import CouponUpdate from "./admin/marketing/update/CoupenUpdate ";
+import SubCategory from "./site/shop/subcategory/SubCategory";
+import Login_Form from "./site/user/Login_Form";
+import SignUp_Form from "./site/user/SignUp_Form";
+import Banners from "./admin/Home/banners/Banners";
+import Add_New_Banner from "./admin/Home/banners/Add_New_Banner";
 import Index from "./site/Index";
-
+import Loader from "./utils/loader/Loader";
+// SignUp_Form
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -331,7 +334,7 @@ function App() {
                 />
 
                 <Route
-                  path="/admin/update-product/:id"
+                  path="/admin/update-product/:product-id/:id"
                   element={
                     <ProtectedRoute isAdmin={true} Component={UpdateProduct} />
                   }

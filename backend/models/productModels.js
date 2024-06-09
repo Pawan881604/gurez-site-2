@@ -101,6 +101,14 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  product_is_updated: {
+    type: Date,
+    default: null,
+  },
+  product_status: {
+    type: String,
+    default: "Active",
+  },
   product_is_deleted: {
     type: String,
     default: "No",

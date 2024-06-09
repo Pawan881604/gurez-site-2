@@ -47,7 +47,7 @@ router
   )
   .delete(isAuthenticatedUser, authorizeRols("admin"), deleteProduct);
 
-router.route("/product/:metalink").get(getSingleProduct);
+router.route("/product/single-page").get(getSingleProduct);
 router.route("/product/status/:id").put(productStatus);
 
 //attributr

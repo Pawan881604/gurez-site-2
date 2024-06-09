@@ -9,7 +9,6 @@ import {
   GET_BLOG_COMMENT_REQUEST,
   GET_BLOG_COMMENT_SUCCESS,
 } from "../constants/BlogCommentConstant";
-import Loader from "../components/layout/loader/Loader";
 
 export const BlogCommentReducer = (state = { data: [] }, action) => {
   switch (action.type) {

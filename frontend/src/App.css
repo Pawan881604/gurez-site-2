@@ -41,9 +41,9 @@ h1 {
 }
 
 h2 {
-  font-size: calc((1.7 - 1) * 1.2vw + 0.8rem);
-  line-height: calc(1.4 * (1 + (1 - 2.5) / 25));
-  margin: 0.5rem 0;
+  font-size: calc((1.7 - 1) * 1.2vw + 0.8rem) !important;
+  line-height: calc(1.4 * (1 + (1 - 2.5) / 25)) !important; 
+  margin: 0.5rem 0  !important;
 }
 h3,
 .font-size-cont {

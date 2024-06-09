@@ -1,16 +1,17 @@
 import React, { useMemo, useState } from "react";
-import ImageLightbox from "../../../productDetails/assets/ImageLightbox";
+import ImageLightbox from "../../../../site/productDetails/assets/ImageLightbox";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { getProductDetails } from "../../../../actions/ProductAction";
 import { addItemsToCart } from "../../../../actions/cartAction";
 import { wishListAction } from "../../../../actions/wishListAction";
-import Details from "../../../productDetails/assets/Details";
-import AddQuantitBtns from "../../../productDetails/assets/AddQuantitBtns";
-import AddToCartBtn from "../../../productDetails/assets/AddToCartBtn";
+import Details from "../../../../site/productDetails/assets/Details";
+import AddQuantitBtns from "../../../../site/productDetails/assets/AddQuantitBtns";
+import AddToCartBtn from "../../../../site/productDetails/assets/AddToCartBtn";
 import { Dialog, DialogContent } from "@material-ui/core";
 import { getProductPostMeta } from "../../../../actions/PostmetaAction";
+
 
 const QuickView = ({ productId, setQuickOpen }) => {
   const [open, setOpen] = useState(true);

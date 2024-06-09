@@ -246,37 +246,16 @@ exports.getAdminAllProducts = catchAsyncError(async (req, res, next) => {
 
 //------ get single products
 exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
-  let Product;
-
-  if (isNaN(req.params.metalink)) {
-    Product = await products
-      .findOne({
-        slug: req.params.metalink,
-      })
-      .populate([
-        { path: "product_category", model: "Categore" },
-        { path: "product_subcategory", model: "SubCategore" },
-      ]);
-  } else {
-    Product = await products.findById(req.params.metalink).populate([
-      { path: "product_category", model: "Categore" },
-      { path: "product_subcategory", model: "SubCategore" },
-      // { path: "seoid", model: "SEO" },
-      // {
-      //   path: "reviewsids",
-      //   model: "reviewsSchema",
-      //   populate: {
-      //     path: "user",
-      //     model: "User",
-      //   },
-      // },
-    ]);
-    //  Product = await Product.findById(req.params.metalink).populate('imageId');
-  }
+  const apiFetures = new ApiFetures(products.find(), req.query).filter();
+  const Products = await apiFetures.query.populate([
+    { path: "product_category", model: "Categore" },
+    { path: "product_subcategory", model: "SubCategore" },
+  ]);
+  const Obj_product = Products[0];
 
   res.status(200).json({
     success: true,
-    Product,
+    Product: Obj_product,
   });
 });
 
@@ -304,8 +283,31 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     subcategory,
     category,
   } = req.body;
-console.log(req.body)
+  // console.log(imageIds);
   const url = await url_formet(slug);
+
+  function flattenArray(array) {
+    return array.reduce((acc, curr) => {
+      return Array.isArray(curr)
+        ? [...acc, ...flattenArray(curr)]
+        : [...acc, curr];
+    }, []);
+  }
+
+  const flattened_Image =
+    Array.isArray(imageIds) && imageIds.length > 0
+      ? flattenArray(imageIds)
+      : imageIds;
+
+  const flattened_category =
+    Array.isArray(category) && category.length > 0
+      ? flattenArray(category)
+      : category;
+
+  const flattened_subcategory =
+    Array.isArray(subcategory) && category.length > 0
+      ? flattenArray(subcategory)
+      : subcategory;
 
   const maxPrice =
     product_Type === "Simple product" ? product_regular_price : 0;
@@ -324,9 +326,9 @@ console.log(req.body)
     product_Weight: Weight,
     product_Dimensions: Dimensions,
     product_Shipping_class: Shipping_class,
-    product_category: category,
-    product_subcategory: subcategory,
-    // product_images: imageIds,
+    product_category: flattened_category,
+    product_subcategory: flattened_subcategory,
+    product_images: flattened_Image,
     product_regular_price: maxPrice,
     product_sale_price: minPrice,
     Default_value,
@@ -338,58 +340,59 @@ console.log(req.body)
     useFindAndModify: false,
     overwrite: true,
   });
-  console.log(updatedProduct)
+
   //------------------------
-  // let variationData = JSON.parse(variation);
-  // let hasVariationData = Object.keys(variationData).length > 0;
-  // let postMetaData;
-  // if (variationData.meta_value) {
-  //   variationData.meta_value.filter((item) => {
-  //     const key = Object.keys(item)[0];
-  //     if (key === Default_value) {
-  //       updatedProduct.product_regular_price = item[key][0].regular_price;
-  //       updatedProduct.product_sale_price = item[key][0].sale_price;
-  //     }
-  //   });
+  let variationData = JSON.parse(variation && variation);
+  let hasVariationData = Object.keys(variationData).length > 0;
 
-  //   //   // Products.product_regular_price=defaultValue[0]
-  //   //   // Products.product_sale_price=
-  //   // } else {
-  // }
+  let postMetaData;
+  if (variationData.meta_value) {
+    variationData.meta_value.filter((item) => {
+      const key = Object.keys(item)[0];
+      if (key === Default_value) {
+        updatedProduct.product_regular_price = item[key][0].regular_price;
+        updatedProduct.product_sale_price = item[key][0].sale_price;
+      }
+    });
 
-  // if (hasVariationData) {
-  //   const isExist = await postMeta.findOne({
-  //     meta_uuid: variationData.meta_uuid,
-  //   });
+    //   // Products.product_regular_price=defaultValue[0]
+    //   // Products.product_sale_price=
+    // } else {
+  }
 
-  //   const data = {
-  //     item_id: product_uuid,
-  //     meta_uuid: variationData.meta_uuid,
-  //     meta_key: variationData.meta_key,
-  //     meta_value: variationData.meta_value,
-  //   };
+  if (hasVariationData) {
+    const isExist = await postMeta.findOne({
+      meta_uuid: variationData.meta_uuid,
+    });
 
-  //   if (isExist) {
-  //     postMetaData = await postMeta
-  //       .findOneAndUpdate({ meta_uuid: variationData.meta_uuid }, data, {
-  //         new: true,
-  //         runValidators: true,
-  //         useFindAndModify: false,
-  //         overwrite: true,
-  //       })
-  //       .exec();
-  //   } else {
-  //     postMetaData = await postMeta.create(data);
-  //   }
-  //   // await updatedProduct.save();
-  // } else {
-  //   updatedProduct.product_regular_price = product_regular_price;
-  //   updatedProduct.product_sale_price = product_sale_price;
-  // }
+    const data = {
+      item_id: product_uuid,
+      meta_uuid: variationData.meta_uuid,
+      meta_key: variationData.meta_key,
+      meta_value: variationData.meta_value,
+    };
 
-  // updatedProduct.product_meta_uuid = postMetaData.meta_uuid;
-  // await updatedProduct.save();
-  // // await generateSitemap();
+    if (isExist) {
+      postMetaData = await postMeta
+        .findOneAndUpdate({ meta_uuid: variationData.meta_uuid }, data, {
+          new: true,
+          runValidators: true,
+          useFindAndModify: false,
+          overwrite: true,
+        })
+        .exec();
+    } else {
+      postMetaData = await postMeta.create(data);
+    }
+    // await updatedProduct.save();
+  } else {
+    updatedProduct.product_regular_price = product_regular_price;
+    updatedProduct.product_sale_price = product_sale_price;
+  }
+
+  updatedProduct.product_meta_uuid = postMetaData && postMetaData.meta_uuid;
+  await updatedProduct.save();
+  await generateSitemap();
 
   res.status(200).json({
     success: true,

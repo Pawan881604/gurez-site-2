@@ -8,12 +8,9 @@ import { BottomHeader } from "./assets/BottomHeader";
 import CallAction from "./assets/CallAction";
 import AdminHeader from "./AdminHeader";
 import { useSelector } from "react-redux";
-import { FaUser } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MobNav } from "./assets/MobNav";
 
-import Sign_in from "../../user/Sign_in";
 import User_Status from "./assets/User_Status";
 
 export const Header = () => {

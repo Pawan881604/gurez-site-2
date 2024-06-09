@@ -21,7 +21,7 @@ const customTheme = {
         medium: "1rem",
         large: "1.125rem",
       },
-      padding:{
+      padding: {
         screen_large: "80px 15px",
       },
       lineHeight: {
@@ -45,11 +45,11 @@ const customTheme = {
       white: "#FFFFFF",
       black: "#000000",
       green: {
-        50: "#EDEEC9",
-        100: "#DDE7C7",
-        200: "#BFD8BD",
-        300: "#98C9A3",
-        400: "#77BFA3",
+        green_50: "#EDEEC9",
+        green_100: "#DDE7C7",
+        green_200: "#BFD8BD",
+        green_300: "#98C9A3",
+        green_400: "#77BFA3",
       },
       Zinc: {
         50: "#FAFAFA",

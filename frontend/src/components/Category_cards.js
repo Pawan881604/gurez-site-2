@@ -106,27 +106,33 @@ const Category_cards = () => {
 
   return (
     <>
-      <Container
+      <div
         style={{
-          maxWidth: [customTheme.screens.lg],
-          padding: [customTheme.themes.layout.padding.screen_large],
+          background: [customTheme.themes.colors.green.green_100],
         }}
       >
-        <Box sx={{ flexGrow: 1 }}>
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 5, sm: 8, md: 12 }}  
-          >
-            {/* {Array.from(Array(6)).map((_, index) => ( */}
-            {images.map((item, index) => (
-              <Grid item xs={5} sm={2} md={2.4} key={index}>
-                <Category_MediaCard item={item} />
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
+        <Container
+          style={{
+            maxWidth: [customTheme.screens.lg],
+            padding: [customTheme.themes.layout.padding.screen_large],
+          }}
+        >
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 5, sm: 8, md: 12 }}
+            >
+              {/* {Array.from(Array(6)).map((_, index) => ( */}
+              {images.map((item, index) => (
+                <Grid item xs={5} sm={2} md={2.4} key={index}>
+                  <Category_MediaCard item={item} />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Container>
+      </div>
     </>
   );
 };

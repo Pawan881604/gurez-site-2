@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import LazyLoadImages from "../../../layout/lazyload/LazyLoadImages";
-import Currency from "../../../layout/currency/Currency";
+import Currency from "../../../../utils/currency/Currency";
 import { Rating } from "@material-ui/lab";
+import LazyLoadImages from "../../../../utils/lazyload/LazyLoadImages";
 
 const Cards2 = ({ product }) => {
   const options = {

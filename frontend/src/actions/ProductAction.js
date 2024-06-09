@@ -137,11 +137,11 @@ export const searchProduct = (searchData) => async (dispatch) => {
   }
 };
 
-export const getProductDetails = (id) => async (dispatch) => {
+export const getProductDetails = (key,id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCCT_DETAILS_REQUEST });
     const { data } = await axiosInstance.get(
-      `${server_url()}/api/v1/product/${id}`,
+      `${server_url()}/api/v1/product/single-page?${key}=${id}`,
       get_method()
     );
     dispatch({

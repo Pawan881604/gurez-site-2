@@ -25,6 +25,27 @@ const seoSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+
+  seo_createdate: {
+    type: Date,
+    default: Date.now,
+  },
+  seo_is_updated: {
+    type: Date,
+    default: null,
+  },
+  seo_status: {
+    type: String,
+    default: "Active",
+  },
+  seo_is_deleted: {
+    type: String,
+    default: "No",
+  },
+  user: {
+    type: Number,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("SEO", seoSchema);

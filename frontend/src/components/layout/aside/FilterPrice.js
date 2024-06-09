@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import Currency from "../currency/Currency";
-
+import Currency from "../../../utils/currency/Currency";
+// import Currency from "../currency/Currency";
+// Currency
 const FilterPrice = ({ inputevent, price }) => {
   const [is_visiable_cat_list, set_is_visiable_cat_list] = useState(true);
   return (

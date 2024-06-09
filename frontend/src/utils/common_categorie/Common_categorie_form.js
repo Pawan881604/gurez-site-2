@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from "react";
-import ImgUploader from "../../components/admin/ImageGellery/uploadimage/ImageTabToggle";
+import ImgUploader from "../../admin/ImageGellery/uploadimage/ImageTabToggle";
 import { getAllImages } from "../../actions/imageGelleryAction";
 import { useDispatch, useSelector } from "react-redux";
 import {

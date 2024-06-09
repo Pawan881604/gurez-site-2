@@ -3,8 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 import LatestProducts from "./assets/LatestProducts";
-import ReviewAnimation from "../layout/loader/ReviewAnimation";
-
+import ReviewAnimation from "../../utils/loader/ReviewAnimation";
 const SaleSection = () => {
   const { loding, products } = useSelector((state) => state.products);
 

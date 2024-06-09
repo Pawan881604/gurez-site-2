@@ -2,7 +2,6 @@ import { Link, NavLink } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import { addItemsToCart } from "../../../actions/cartAction";
 import { useDispatch } from "react-redux";
-import LazyLoadImages from "../../layout/lazyload/LazyLoadImages";
 import { CiHeart } from "react-icons/ci";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { useAlert } from "react-alert";
@@ -10,10 +9,11 @@ import {
   wishListAction,
   CreateBookmarkAction,
 } from "../../../actions/wishListAction";
-import Currency from "../../layout/currency/Currency";
+import Currency from "../../../utils/currency/Currency";
 import { useState } from "react";
 import QuickView from "./producquickview/QuickView";
 import { v4 as uuidv4, v4 } from "uuid";
+import LazyLoadImages from "../../../utils/lazyload/LazyLoadImages";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();

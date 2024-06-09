@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaSistrix } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
-import { ClearError, searchProduct } from "../../../../actions/ProductAction";
-import Loader from "../../loader/Loader";
 import { NavLink } from "react-router-dom";
 import "./search.css";
-import { StarComponent } from "../../../productDetails/assets/StarComponent";
 import { server_url } from "../../../../utils/Url";
-import Currency from "../../currency/Currency";
+import Currency from "../../../../utils/currency/Currency";
+import {ClearError, searchProduct } from "../../../../actions/ProductAction";
+import { StarComponent } from "../../../../site/productDetails/assets/StarComponent";
+import Loader from "../../../../utils/loader/Loader";
 
 export const Search = () => {
   const dispatch = useDispatch();
