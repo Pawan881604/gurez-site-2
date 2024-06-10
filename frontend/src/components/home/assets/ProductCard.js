@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
   };
 
   const [quickOpen, setQuickOpen] = useState(false);
-  const productId = product._id;
+  const productId = product.product_uuid;
 
   const buyNow = (id, quentity) => {
     dispatch(addItemsToCart(id, quentity));
@@ -116,14 +116,14 @@ const ProductCard = ({ product }) => {
                 {product.product_subcategory &&
                   product.product_subcategory.map((item, i) => (
                     <span key={i}>
-                      <NavLink
-                        to={`/product-category/${
+                      {/* <NavLink
+                        to={`/${
                           product.product_category[0] &&
                           product.product_category[0].slug
                         }/${item.slug}`}
-                      >
+                      > */}
                         {item.name}
-                      </NavLink>
+                      {/* </NavLink> */}
                       ,
                     </span>
                   ))}
@@ -132,7 +132,8 @@ const ProductCard = ({ product }) => {
             <h3>
               <Link
                 className="product-card space-set font-size-cont"
-                to={`/product/${product.slug}`}
+                to={`/${product.product_category[0] &&
+                  product.product_category[0].slug}/${product.product_uuid}`}
               >
                 {product.product_name.substr(0, 50)}...
               </Link>

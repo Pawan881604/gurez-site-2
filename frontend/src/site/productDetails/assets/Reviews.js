@@ -53,7 +53,7 @@ const Reviews = () => {
       fetchData();
     }
     return () => {
-      console.log("Cleanup code executed");
+  
     };
   }, [dispatch, alert, success, reverror, currentPage, product]);
 

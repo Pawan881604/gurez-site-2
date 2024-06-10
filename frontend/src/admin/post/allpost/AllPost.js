@@ -26,12 +26,11 @@ import DataGridTable from "../../../utils/DataGridTable";
 import { TimeAgo } from "../../../utils/time/TimeAgo";
 // TimeAgo
 
-
 function AllPost() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const Navigate = useNavigate();
-  const { loading, blog, error } = useSelector((state) => state.allBlog);
+  const { loading, blog, error,blogPostCount,resultPerpage } = useSelector((state) => state.allBlog);
   const {
     loading: deleteLoading,
     isDeleted,
@@ -58,43 +57,6 @@ function AllPost() {
     dispatch(DeleteBlogPost(id));
   };
 
-  const dummy = [
-    {
-      Title: "demo",
-      Author: "gurezecom",
-      Categories: "Pet Products",
-      Tags: "	Tags",
-      Date: "	001",
-    },
-    {
-      Title: "demo1",
-      Author: "gureze",
-      Categories: "Pet ",
-      Tags: "	Tagsc",
-      Date: "	001",
-    },
-    {
-      Title: "demo2",
-      Author: "gureom",
-      Categories: "Pet",
-      Tags: "	Tags",
-      Date: "	001",
-    },
-    {
-      Title: "demo3",
-      Author: "gurem",
-      Categories: "Pets",
-      Tags: "	Tags",
-      Date: "	001",
-    },
-    {
-      Title: "demo4",
-      Author: "gurezecdom",
-      Categories: "Pet Psdroducts",
-      Tags: "	Tagss",
-      Date: "	001",
-    },
-  ];
   const columns = [
     {
       field: "name",
@@ -143,15 +105,15 @@ function AllPost() {
   ];
 
   const rows = [];
-  dummy &&
-    dummy.forEach((item, i) => {
+  blog &&
+    blog.forEach((item, i) => {
       rows.push({
         id: i,
-        name: item.Title,
-        author: item.Author,
-        category: item.Categories,
-        tag: item.Tags,
-        date: item.Date,
+        name: item.blog_title,
+        author: item.user.name,
+        category: item.blog_category[0].blog_category_title,
+        // tag: item.Tags,
+        date: item.blog_createdate,
       });
     });
   return (
@@ -188,7 +150,9 @@ function AllPost() {
                           <DataGridTable
                             rows={rows}
                             columns={columns}
-                            loading={false}
+                            loading={loading}
+                            item_Length={blogPostCount}
+                            result_Per_page={resultPerpage}
                           />
                         </div>
                         {/* </>

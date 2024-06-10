@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Aside } from "../../aside/Aside";
-// import MetaData from "../../../layout/metaData/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -204,31 +203,17 @@ export const CreateProduct = () => {
       alert.error(error);
       dispatch(ClearError());
     }
-    // if (success) {
-    //   alert.success("product created");
-    //   Navigate("/admin/all-products");
-    //   dispatch({ type: NEW_PRODUCT_RESET });
-    // }
-    // if (!seo_input_value.seo_title) {
-    //   const url = title.split(" ").join("-");
-    //   set_seo_input_value({
-    //     seo_title: title,
-    //     seo_slug: url,
-    //     seo_decription: title,
-    //   });
-    // }
-
+    if (success) {
+      alert.success("product created");
+      Navigate("/admin/all-products");
+      dispatch({ type: NEW_PRODUCT_RESET });
+    }
     dispatch(GetAllProductLabelAction());
     dispatch(GetProductAttributeAction(""));
   }, [alert, error, dispatch, success, Navigate, slug, title]);
 
   return (
     <>
-      {/* <MetaData
-        title={"Admin create product list"}
-        content={"Admin create product list"}
-        keywords={"Admin create product list"}
-      /> */}
       <div className="admin-page">
         <div className="admin-page-area">
           <Aside />
@@ -300,7 +285,7 @@ export const CreateProduct = () => {
                     </Box>
                   </div>
                   <div className="col-md-4">
-                    <Publish_status handlePublishBut={handlePublishBut} />
+                    <Publish_status loading={loding} handlePublishBut={handlePublishBut} />
                     <Sidebar_categories
                       set_sub_categorie_list={set_sub_categorie_list}
                       categorie_list={categorie_list}

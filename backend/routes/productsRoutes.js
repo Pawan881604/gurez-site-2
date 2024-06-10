@@ -5,7 +5,6 @@ const {
   updateProducts,
   deleteProduct,
   getSingleProduct,
-  getAdminAllProducts,
   featureProduct,
   productStatus,
   productAttribute,
@@ -26,9 +25,7 @@ const upload = require("../middleware/multer");
 
 router.route("/products").get(getAllProducts);
 router.route("/feature-product").get(featureProduct);
-router
-  .route("/admin/products")
-  .get(isAuthenticatedUser, authorizeRols("admin"), getAdminAllProducts);
+
 router
   .route("/product/new")
   .post(

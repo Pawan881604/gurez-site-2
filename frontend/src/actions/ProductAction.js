@@ -137,24 +137,28 @@ export const searchProduct = (searchData) => async (dispatch) => {
   }
 };
 
-export const getProductDetails = (key,id) => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCCT_DETAILS_REQUEST });
-    const { data } = await axiosInstance.get(
-      `${server_url()}/api/v1/product/single-page?${key}=${id}`,
-      get_method()
-    );
-    dispatch({
-      type: PRODUCCT_DETAILS_SUCCESS,
-      payload: data.Product,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCCT_DETAILS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+export const getProductDetails =
+  (key, id, parent_categorie, cat_id) => async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCCT_DETAILS_REQUEST });
+
+      let link = `${server_url()}/api/v1/product/single-page?${key}=${id}&${parent_categorie}=${cat_id}`;
+
+      // if (parent_categorie) {
+      //   link += `&?${parent_categorie}=${cat_id}`;
+      // }
+      const { data } = await axiosInstance.get(link, get_method());
+      dispatch({
+        type: PRODUCCT_DETAILS_SUCCESS,
+        payload: data.Product,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCCT_DETAILS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const getCategorie =
   (currentPage = 1, price = [0, 1000], categorie, ratings) =>
@@ -213,24 +217,24 @@ export const newReview = (reviewData) => async (dispatch) => {
 
 //----------get all product for admin
 
-export const adminGetAllProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: ADMIN_PRODUCT_REQUEST });
-    const { data } = await axiosInstance.get(
-      `${server_url()}/api/v1/admin/products`,
-      get_method()
-    );
-    dispatch({
-      type: ADMIN_PRODUCT_SUCCESS,
-      payload: data.Products,
-    });
-  } catch (err) {
-    dispatch({
-      type: ADMIN_PRODUCT_FAIL,
-      payload: err.response.data.message,
-    });
-  }
-};
+// export const adminGetAllProducts = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: ADMIN_PRODUCT_REQUEST });
+//     const { data } = await axiosInstance.get(
+//       `${server_url()}/api/v1/admin/products`,
+//       get_method()
+//     );
+//     dispatch({
+//       type: ADMIN_PRODUCT_SUCCESS,
+//       payload: data.Products,
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: ADMIN_PRODUCT_FAIL,
+//       payload: err.response.data.message,
+//     });
+//   }
+// };
 
 export const createNewProduct =
   (productData, VariationData, imageIds, subcheckedItems, checkedItems) =>

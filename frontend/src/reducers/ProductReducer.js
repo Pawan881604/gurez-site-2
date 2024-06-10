@@ -146,7 +146,6 @@ export const featureProductReducer = (state = { product: [] }, action) => {
 export const productReducer = (state = { Products: [] }, action) => {
   switch (action.type) {
     case ALL_PRODUCT_REQUEST:
-    case ADMIN_PRODUCT_REQUEST:
       return {
         loding: true,
         product: [],
@@ -159,13 +158,8 @@ export const productReducer = (state = { Products: [] }, action) => {
         productsCount: action.payload.productCount,
         resultPerPage: action.payload.resultPerpage,
       };
-    case ADMIN_PRODUCT_SUCCESS:
-      return {
-        loding: false,
-        products: action.payload,
-      };
+   
     case ALL_PRODUCT_FAIL:
-    case ADMIN_PRODUCT_FAIL:
       return {
         loding: false,
         error: action.payload,

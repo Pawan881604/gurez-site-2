@@ -14,7 +14,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { adminGetAllProducts } from "../../actions/ProductAction";
+import { getProduct } from "../../actions/ProductAction";
 import { getAllorders } from "../../actions/OrderAction";
 import { getAllUsers } from "../../actions/UserAction";
 // import MetaData from "../../layout/metaData/MetaData";
@@ -36,7 +36,7 @@ export const Dashboard = () => {
   const { users } = useSelector((state) => state.adminUsers);
 
   useEffect(() => {
-    dispatch(adminGetAllProducts());
+    dispatch(getProduct());
     dispatch(getAllorders());
     dispatch(getAllUsers());
   }, [dispatch]);

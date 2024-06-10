@@ -56,7 +56,7 @@ const Categories = () => {
                   <li key={i}>
                     <div className="row col-md-12">
                       <NavLink
-                        to={`/product-category/${item.slug}`}
+                        to={`/${item.slug}`}
                         className="parent-cate-list col-md-10"
                       >
                         {item.name}
@@ -90,11 +90,11 @@ const Categories = () => {
                           )
                           .map((subitem, i) => (
                             <li key={i}>
-                              <NavLink
+                              {/* <NavLink
                                 to={`/product-category/${item.slug}/${subitem.slug}`}
-                              >
+                              > */}
                                 {subitem.name}
-                              </NavLink>
+                              {/* </NavLink> */}
                             </li>
                           ))}
                     </ul>

@@ -11,16 +11,25 @@ const { generateUniqueUrl } = require("../utils/generate_Unique_Url");
 //-------------- get all post
 exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
   const resultPerpage = 12;
-  const blogPostCount = await blogPost.find().countDocuments();
+
+  const count_query = req.query.blog_category
+    ? { blog_category: req.query.blog_category }
+    : { blog_subcategory: req.query.blog_subcategory };
+  const filter_count = await blogPost.find(count_query ? count_query : "");
+  const blog_count =
+    filter_count.length === 0
+      ? await blogPost.countDocuments()
+      : filter_count.length;
+
   const apiFetures = new ApiFetures(blogPost.find(), req.query)
     .search()
     .pagination(resultPerpage);
 
   const blog = await apiFetures.query
     .populate([
-      { path: "category", model: "blogCategore" },
+      { path: "blog_category", model: "blog_Categore" },
+      { path: "blog_subcategory", model: "blog_sub_categore" },
       { path: "user", model: "User" },
-      { path: "seo", model: "SEO" },
     ])
     .exec();
 
@@ -29,7 +38,7 @@ exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
     success: true,
     blog: reverseBlog,
     resultPerpage,
-    blogPostCount,
+    blogPostCount: blog_count,
   });
 });
 
@@ -86,7 +95,7 @@ exports.createBlogPost = catchAsyncError(async (req, res, next) => {
   const user = req.user._id;
 
   const uniqe_url = await generateUniqueUrl(slug, blogPost, "blog_slug");
-  console.log(uniqe_url);
+
   function flattenArray(array) {
     return array.reduce((acc, curr) => {
       return Array.isArray(curr)

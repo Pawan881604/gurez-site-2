@@ -24,7 +24,7 @@ const blogPostSchema = new mongoose.Schema({
   blog_subcategory: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Categore",
+      ref: "blog_sub_categore",
     },
   ],
   blog_tegs: [

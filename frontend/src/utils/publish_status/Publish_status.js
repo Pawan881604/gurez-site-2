@@ -9,11 +9,12 @@ import {
   Card,
   CardActions,
   CardContent,
+  CircularProgress,
 } from "@mui/material";
 import Save_draft from "./Save_draft";
 import Visibility_public from "./Visibility_public";
 
-const Publish_status = ({handlePublishBut}) => {
+const Publish_status = ({ handlePublishBut, loading }) => {
   const [draft_action, set_draft_action] = React.useState("Draft");
   const [Visibility_action, set_Visibility_action] = React.useState("Public");
   const [Publish_action, set_Publish_action] = React.useState("Public");
@@ -108,12 +109,38 @@ const Publish_status = ({handlePublishBut}) => {
             </div>
             <div className="col-md-6">
               <Button
+                type="submit"
+                fullWidth
                 size="small"
-                variant="contained"
                 style={{ fontSize: "12px" }}
-                onClick={()=>handlePublishBut()}
+                onClick={() => handlePublishBut()}
+                variant="contained"
+                disabled={loading}
+                sx={{
+                  mt: 3,
+                  mb: 3,
+                  color: "#fff",
+                  backgroundColor: "#73c631",
+                  "&:hover": {
+                    backgroundColor: "#fff",
+                    color: "#73c631",
+                  },
+                }}
+                startIcon={!loading}
               >
-                Publish
+                {loading ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CircularProgress size={24} color="inherit" />
+                  </div>
+                ) : (
+                  "Publish"
+                )}
               </Button>
             </div>
           </div>

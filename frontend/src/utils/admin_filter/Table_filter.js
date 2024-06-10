@@ -5,7 +5,7 @@ import Bulk_Action from "./Bulk_Action";
 import Filter_by_Date from "./Filter_by_Date";
 import Categories_filter from "./Categories_filter";
 
-const Table_filter = ({ Filter_by_Bulk_Action }) => {
+const Table_filter = ({ Filter_by_Bulk_Action,item_Length }) => {
   return (
     <>
       <div className="row space-between-center">
@@ -27,7 +27,7 @@ const Table_filter = ({ Filter_by_Bulk_Action }) => {
           </div>
         </div>
         <div className="col-md-2 text-align-end">
-          <p className="xsm-font-size">7 items</p>
+          <p className="xsm-font-size">{item_Length} items</p>
         </div>
       </div>
     </>

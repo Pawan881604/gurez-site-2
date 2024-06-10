@@ -19,6 +19,7 @@ const QuickView = ({ productId, setQuickOpen }) => {
   const alert = useAlert();
   const Navigate = useNavigate();
   const id = productId;
+  console.log(productId, setQuickOpen)
   const { product } = useSelector((state) => state.productDetails);
   const [label, setLabel] = useState("");
   const [variantPriceValue, setVariantPriceValue] = useState([]);
@@ -81,7 +82,7 @@ const QuickView = ({ productId, setQuickOpen }) => {
   };
 
   useMemo(() => {
-    dispatch(getProductDetails(id));
+    dispatch(getProductDetails('product_uuid', id));
     if (product) {
       setLabel(product && product.Default_value);
     }

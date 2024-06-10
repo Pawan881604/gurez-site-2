@@ -55,8 +55,10 @@ exports.update_seo = catchAsyncError(async (req, res, next) => {
     seo_link: url,
     product_uuid: product_uuid,
     seo_is_updated: Date.now(),
+    user
   };
   const is_exist = await seoModel.findOne({ seo_uuid: uuid });
+
   if (is_exist) {
     await seoModel.findByIdAndUpdate(is_exist._id, data, {
       new: true,

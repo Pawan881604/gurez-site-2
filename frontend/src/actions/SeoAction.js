@@ -19,7 +19,7 @@ export const getAllSeo = (id) => async (dispatch) => {
     dispatch({ type: SEO_REQUEST });
     let link = `${server_url()}/api/v1/all-seo`;
     if (id) {
-      link += `?product_uuid=${id}`;
+      link += `?item_uuid=${id}`;
     }
     const { data } = await axiosInstance.get(link, get_method());
     dispatch({ type: SEO_SUCCESS, payload: data.seo });

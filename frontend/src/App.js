@@ -125,8 +125,20 @@ function App() {
                   element={<ProtectedRoute Component={UserDashboard} />}
                 />
                 <Route
-                  path="/product-category/:category"
+                  path="/:category"
                   element={<Category />}
+                />
+                 <Route
+                  path="/product-category/:category/:subcategory"
+                  element={<SubCategory />}
+                />
+                 <Route
+                  path="/:category/:id"
+                  element={
+                    // <ErrorBoundary>
+                    <ProductDetails />
+                    // </ErrorBoundary>
+                  }
                 />
                 <Route
                   path="/admin/all-contact"
@@ -137,10 +149,7 @@ function App() {
                     />
                   }
                 />
-                <Route
-                  path="/product-category/:category/:subcategory"
-                  element={<SubCategory />}
-                />
+               
                 <Route path="/wishlist" element={<WishList />} />
                 <Route path="/otp-verification" element={<Otpverification />} />
                 <Route path="/forget-password" element={<ForgetPassword />} />
@@ -155,14 +164,7 @@ function App() {
                 />
                 <Route path="/blog/:id" element={<SingleBlog />} />
 
-                <Route
-                  path="/product/:id"
-                  element={
-                    // <ErrorBoundary>
-                    <ProductDetails />
-                    // </ErrorBoundary>
-                  }
-                />
+               
 
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/editor" element={<Editor />} />

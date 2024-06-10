@@ -16,6 +16,7 @@ const AttributeModel = require("../models/AttributeModel");
 const LabelModel = require("../models/ProductLabelModel");
 const postMeta = require("../models/PostMetaModel");
 const { url_formet } = require("../utils/url_formet");
+const { generateUniqueUrl } = require("../utils/generate_Unique_Url");
 //------------ Feature Products
 
 exports.featureProduct = catchAsyncError(async (req, res, nex) => {
@@ -79,28 +80,11 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
 
   // let generalPrice = JSON.parse(general_Price);
   let variationData = JSON.parse(variation);
-  // const url = await url_formet(slug); 
+  // const url = await url_formet(slug);
   const uniqe_url = await generateUniqueUrl(slug, products, "slug");
   const user = req.user.id;
   let hasVariationData = Object.keys(variationData).length > 0;
   let postMetaData;
-
-  const existing = await products.findOne({ slug: url });
-  if (existing) {
-    return next(
-      new ErrorHandler(
-        `Slug already exists. Please choose a different one.`,
-        404
-      )
-    );
-  }
-  // product_sale_price: {
-  //   type: Number,
-  // },
-  // product_ratings: {
-  //   type: Number,
-  //   default: 0,
-  // },
 
   const Products = await products.create({
     _id:
@@ -125,7 +109,7 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
     // product_regular_price,
     // product_sale_price,
     Default_value,
-    slug: url,
+    slug: uniqe_url,
     user,
   });
 
@@ -227,23 +211,6 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   });
 });
 
-//----------get all produts --Admin
-exports.getAdminAllProducts = catchAsyncError(async (req, res, next) => {
-  let Products = await products.find();
-
-  Products.reverse();
-  // if product not found
-  if (!Products) {
-    // No products found
-    return next(new ErrorHandler("No products found", 404));
-  }
-  // if product found
-  res.status(200).json({
-    success: true,
-    Products,
-  });
-});
-
 //------ get single products
 exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
   const apiFetures = new ApiFetures(products.find(), req.query).filter();
@@ -251,6 +218,8 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
     { path: "product_category", model: "Categore" },
     { path: "product_subcategory", model: "SubCategore" },
   ]);
+
+
   const Obj_product = Products[0];
 
   res.status(200).json({
@@ -334,12 +303,16 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     Default_value,
     slug: uniqe_url,
   };
-  const updatedProduct = await products.findByIdAndUpdate(req.params.id, data, {
-    new: true,
-    runValidators: true,
-    useFindAndModify: false,
-    overwrite: true,
-  });
+  const updatedProduct = await products.findOneAndUpdate(
+    { product_uuid: [req.params.id] },
+    data,
+    {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+      overwrite: true,
+    }
+  );
 
   //------------------------
   let variationData = JSON.parse(variation && variation);

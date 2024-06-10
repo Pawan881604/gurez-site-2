@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DataGrid } from "@material-ui/data-grid";
-
 import { useAlert } from "react-alert";
 import { Switch } from "@material-ui/core";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -9,31 +7,24 @@ import { Aside } from "../../aside/Aside";
 import { FaUpRightFromSquare, FaTrash } from "react-icons/fa6";
 import {
   ClearError,
-  adminGetAllProducts,
+  getProduct,
   deleteAdminProduct,
   updateProductStatus,
 } from "../../../actions/ProductAction";
-import {
-  DELETE_PRODUCT_RESET,
-  PRODUCT_STATUS_RESET,
-} from "../../../constants/ProductConstants";
+import { DELETE_PRODUCT_RESET } from "../../../constants/ProductConstants";
 import { Helmet } from "react-helmet";
-import Loader from "../../../utils/loader/Loader";
-// import Loader from "../../../components/layout/loader/Loader";
-// import MetaData from "../../../components/layout/metaData/MetaData";
-// Loader
+import DataGridTable from "../../../utils/DataGridTable";
+
 export const AllProducts = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const Navigate = useNavigate();
+  const { error, products, loding, productsCount, resultPerPage } = useSelector(
+    (state) => state.products
+  );
 
   const [checked, setChecked] = useState({});
-  const {
-    loading: updateStatusLoading,
-    isUpdate,
-    error: updateStatusError,
-  } = useSelector((state) => state.adminupdateproductstatus);
-  const { error, products, loding } = useSelector((state) => state.products);
+
   const {
     error: deletError,
     isDeleted,
@@ -58,13 +49,7 @@ export const AllProducts = () => {
       alert.error(error);
       dispatch(ClearError());
     }
-    if (updateStatusError) {
-      alert.error(updateStatusError);
-      dispatch(ClearError());
-    }
-    if (isUpdate) {
-      dispatch({ type: PRODUCT_STATUS_RESET });
-    }
+
     if (deletError) {
       alert.error(deletError);
       dispatch(ClearError());
@@ -76,8 +61,8 @@ export const AllProducts = () => {
         type: DELETE_PRODUCT_RESET,
       });
     }
-    dispatch(adminGetAllProducts());
-  }, [alert, dispatch, error, deletError, Navigate, isDeleted, isUpdate]);
+    dispatch(getProduct());
+  }, [alert, dispatch, error, deletError, Navigate, isDeleted]);
 
   const columns = [
     {
@@ -113,15 +98,9 @@ export const AllProducts = () => {
       flex: 0.3,
       shortable: false,
       renderCell: (params) => {
-       
         const rowStatus = params.row.status;
         return (
           <>
-            {/* <MetaData
-              title={"Admin all product list"}
-              content={"Admin all product list"}
-              keywords={"Admin all product list"}
-            /> */}
             <Switch
               className={rowStatus ? "toggle-chekbox-active" : ""}
               checked={checked[params.row.id] || false}
@@ -129,7 +108,9 @@ export const AllProducts = () => {
               inputProps={{ "aria-label": "controlled" }}
             />
             <NavLink
-              to={`/admin/update-product/${params.getValue(params.id, "id")}/${params.row.product_uuid}`}
+              to={`/admin/update-product/${params.getValue(params.id, "id")}/${
+                params.row.product_uuid
+              }`}
             >
               <FaUpRightFromSquare />
             </NavLink>
@@ -189,27 +170,14 @@ export const AllProducts = () => {
                     <div className="all-products-title">
                       <h1>All products</h1>
                     </div>
-                    <div className="productdata">
-                      {loding ? (
-                        <Loader />
-                      ) : (
-                        <>
-                          {products && products.length > 0 ? (
-                            <>
-                              <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                // page={10}
-                                disableSelectionOnClick
-                                className="product-list-table"
-                                autoHeight
-                              />
-                            </>
-                          ) : (
-                            <p>no data found</p>
-                          )}
-                        </>
-                      )}
+                    <div className="table-grid">
+                      <DataGridTable
+                        rows={rows}
+                        columns={columns}
+                        loading={loding}
+                        item_Length={productsCount}
+                        result_Per_page={resultPerPage}
+                      />
                     </div>
                   </div>
                 </div>
