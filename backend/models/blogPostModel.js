@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const CountModel = require("./CountModel");
 
 const blogPostSchema = new mongoose.Schema({
-  postid: Number,
+  blog_uuid: {
+    type: String,
+    default: null,
+  },
+  postid: { type: Number, default: null },
   blog_title: {
     type: String,
     default: null,
@@ -31,43 +35,32 @@ const blogPostSchema = new mongoose.Schema({
   ],
   blog_slug: {
     type: String,
+    default: null,
   },
   blog_featureimage: {
     type: String,
+    default: null,
   },
   user: {
     type: Number,
     ref: "User",
-    required: true,
   },
   blog_createdate: {
     type: Date,
     default: Date.now(),
   },
+  blog_is_updated: {
+    type: Date,
+    default: null,
+  },
   blog_is_status: {
     type: String,
-    default: "Draft",
+    default: "Active",
   },
   blog_is_deleted: {
     type: String,
     default: "No",
   },
 });
-blogPostSchema.pre("save", async function (next) {
-  if (!this.isNew) {
-    return next();
-  }
-  try {
-    const counter = await CountModel.findOneAndUpdate(
-      { entityName: "User" },
-      { $inc: { blogpost: 1 } },
-      { new: true, upsert: true }
-    );
-    this.postid = counter.blogpost;
-    next();
-  } catch (err) {
-    console.log(err);
-    next(err);
-  }
-});
+
 module.exports = mongoose.model("blogPost", blogPostSchema);

@@ -29,7 +29,7 @@ export const getAllSeo = (id) => async (dispatch) => {
 };
 
 export const create_seo =
-  (input_value, product_uuid, uuid, seo_keywords) => async (dispatch) => {
+  (input_value, item_uuid, uuid, seo_keywords) => async (dispatch) => {
     try {
       const keywords = JSON.stringify(seo_keywords);
       dispatch({ type: CREATE_SEO_REQUEST });
@@ -37,7 +37,7 @@ export const create_seo =
       for (let key in input_value) {
         formdata.append(key, input_value[key]);
       }
-      formdata.append("product_uuid", product_uuid);
+      formdata.append("item_uuid", item_uuid);
       formdata.append("uuid", uuid);
       formdata.append("keywords", keywords);
 

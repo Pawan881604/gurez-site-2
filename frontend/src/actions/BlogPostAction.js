@@ -28,7 +28,7 @@ export const searchBlog = (searchData) => async (dispatch) => {
     dispatch({ type: ALL_BLOG_SEARCH_REQUEST });
     const { data } = await axiosInstance.get(
       `${server_url()}/api/v1/blog/all-post?keyword=${searchData}`,
-    get_method()
+      get_method()
     );
     dispatch({ type: ALL_BLOG_SEARCH_SUCCESS, payload: data });
   } catch (err) {
@@ -66,7 +66,10 @@ export const GetBlogPost =
 export const singleBlogPost = (id) => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_BLOG_POST_REQUEST });
-    const { data } = await axiosInstance.get(`${server_url()}/api/v1/blog/post/${id}`, get_method());
+    const { data } = await axiosInstance.get(
+      `${server_url()}/api/v1/blog/post/${id}`,
+      get_method()
+    );
     dispatch({
       type: SINGLE_BLOG_POST_SUCCESS,
       payload: data.blog,
@@ -83,33 +86,37 @@ export const singleBlogPost = (id) => async (dispatch) => {
 
 export const CreateBlogPost =
   (
-    selectedCategoryId,
     title,
     description,
+    blog_uuid,
     slug,
-    seotitle,
-    keyword,
-    metadec,
-    metalink
+    image_url,
+    sub_categorie_list,
+    categorie_list
   ) =>
   async (dispatch) => {
     try {
       dispatch({ type: CREATE_BLOG_POST_REQUEST });
       const formData = new FormData();
-      formData.append("category", selectedCategoryId);
       formData.append("title", title);
       formData.append("description", description);
       formData.append("slug", slug);
-      formData.append("seotitle", seotitle);
-      formData.append("keyword", keyword);
-      formData.append("metadec", metadec);
-      formData.append("metalink", metalink);
-    
+      formData.append("blog_uuid", blog_uuid);
+      formData.append("image_url", image_url);
+      for (let i = 0; i < sub_categorie_list.length; i++) {
+        formData.append("subcategory", String(sub_categorie_list[i]));
+      }
+
+      for (let i = 0; i < categorie_list.length; i++) {
+        formData.append("category", String(categorie_list[i]));
+      }
+
       const { data } = await axiosInstance.post(
         `${server_url()}/api/v1/blog/add-new-post`,
         formData,
         others_method()
       );
+
       dispatch({
         type: CREATE_BLOG_POST_SUCCESS,
         payload: data.blog,
@@ -169,7 +176,7 @@ export const UpdateBlogPost =
       formData.append("keyword", keyword);
       formData.append("metadec", metadec);
       formData.append("metalink", metalink);
-     
+
       const { data } = await axiosInstance.put(
         `${server_url()}/api/v1/blog/update-post/${id}`,
         formData,

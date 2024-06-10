@@ -21,7 +21,7 @@ exports.getAllSeo = catchAsyncError(async (req, res, next) => {
 });
 
 exports.create_seo = catchAsyncError(async (req, res, next) => {
-  const { seo_title, seo_slug, seo_decription, product_uuid, uuid, keywords } =
+  const { seo_title, seo_slug, seo_decription, item_uuid, uuid, keywords } =
     req.body;
   const user = req.user._id;
   const url = await url_formet(seo_slug);
@@ -32,7 +32,7 @@ exports.create_seo = catchAsyncError(async (req, res, next) => {
     seo_keyword: keyword,
     seo_description: seo_decription,
     seo_link: url,
-    product_uuid: product_uuid,
+    item_uuid: item_uuid,
     user,
   });
   res.status(200).json({

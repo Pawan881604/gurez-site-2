@@ -5,6 +5,8 @@ const blogPost = require("../models/blogPostModel");
 const ErrorHandler = require("../utils/errorhandler");
 const seoModel = require("../models/seoModel");
 const ApiFetures = require("../utils/apiFeatuers");
+const { url_formet } = require("../utils/url_formet");
+const { generateUniqueUrl } = require("../utils/generate_Unique_Url");
 
 //-------------- get all post
 exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
@@ -12,7 +14,6 @@ exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
   const blogPostCount = await blogPost.find().countDocuments();
   const apiFetures = new ApiFetures(blogPost.find(), req.query)
     .search()
-    .filter()
     .pagination(resultPerpage);
 
   const blog = await apiFetures.query
@@ -22,7 +23,7 @@ exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
       { path: "seo", model: "SEO" },
     ])
     .exec();
-  
+
   const reverseBlog = blog.reverse();
   res.status(200).json({
     success: true,
@@ -73,72 +74,52 @@ exports.filterblogpost = catchAsyncError(async (req, res, next) => {
 //------ create blog post -- admin
 
 exports.createBlogPost = catchAsyncError(async (req, res, next) => {
-  const bloggCounter = await CountModel.findOne({ entityName: "User" });
   const {
     title,
     description,
     slug,
+    blog_uuid,
+    image_url,
+    subcategory,
     category,
-    seotitle,
-    keyword,
-    metadec,
-    metalink,
   } = req.body;
-
-  const url = slug.split(" ").join("-").toLowerCase();
   const user = req.user._id;
 
-  const existingSlug = await blogPost.findOne({ slug: url });
-
-  if (existingSlug) {
-    return next(
-      new ErrorHandler(
-        `Slug already exists. Please choose a different one.`,
-        404
-      )
-    );
+  const uniqe_url = await generateUniqueUrl(slug, blogPost, "blog_slug");
+  console.log(uniqe_url);
+  function flattenArray(array) {
+    return array.reduce((acc, curr) => {
+      return Array.isArray(curr)
+        ? [...acc, ...flattenArray(curr)]
+        : [...acc, curr];
+    }, []);
   }
+
+  const flattened_category =
+    Array.isArray(category) && category.length > 0
+      ? flattenArray(category)
+      : category;
+
+  const flattened_subcategory =
+    Array.isArray(subcategory) && subcategory.length > 0
+      ? flattenArray(subcategory)
+      : subcategory;
+  const blog_length = await blogPost.countDocuments();
 
   const blog = await blogPost.create({
-    postid:
-      bloggCounter && bloggCounter.blogpost !== null
-        ? bloggCounter.blogpost
-        : 1,
-    title,
-    name: title,
-    article: description,
-    category,
-    slug: url,
+    postid: blog_length + 1,
+    blog_title: title,
+    blog_content: description,
+    blog_category: flattened_category,
+    blog_subcategory: flattened_subcategory,
+    blog_slug: uniqe_url,
+    blog_featureimage: image_url,
+    blog_uuid,
     user,
   });
-
-  const existingSeoUrl = await seoModel.findOne({ metalink: url });
-
-  if (existingSeoUrl) {
-    return next(
-      new ErrorHandler(
-        `Slug already exists. Please choose a different one.`,
-        404
-      )
-    );
-  }
-  const type = "post";
-  const seo = await seoModel.create({
-    metatitle: seotitle,
-    keyword,
-    metadec,
-    metalink: slug,
-    type,
-    blogid: blog._id,
-  });
-
-  blog.seo = seo._id;
-  await blog.save({ validateBeforeSave: false });
-
   res.status(201).json({
     success: true,
     blog,
-    seo,
   });
 });
 

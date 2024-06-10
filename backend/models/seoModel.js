@@ -21,7 +21,7 @@ const seoSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  product_uuid: {
+  item_uuid: {
     type: String,
     default: null,
   },

@@ -24,10 +24,12 @@ import Tags from "../../../utils/tags/Tags";
 import Featured_Image from "../../../utils/featured_image/Featured_Image";
 // import Featured_Image from "../../../utils/featured_image/Featured_Image";
 
-
 import Draft_wysiwyg from "../../../utils/Editor/Draft_wysiwyg";
 import Loader from "../../../utils/loader/Loader";
 import { CharCount } from "../../../utils/CharCount/CharCount";
+import Jodit_Editor from "../../../utils/Editor/Jodit_Editor";
+import { create_seo } from "../../../actions/SeoAction";
+import generateUuid from "../../../utils/Uuidv4";
 function CreatePost() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -35,7 +37,9 @@ function CreatePost() {
   const { loading, success, error } = useSelector(
     (state) => state.adminCreatePost
   );
-
+  const { images } = useSelector((state) => state.selectedImages);
+  const [categorie_list, set_categori_list] = useState([]);
+  const [sub_categorie_list, set_sub_categorie_list] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setSescription] = useState("");
@@ -55,40 +59,44 @@ function CreatePost() {
     seo_decription: "",
   });
 
-  const contentHeandle = (e) => {
-    setSescription(e);
-  };
-
   const submitHandler = (e) => {
-    e.preventDefault();
-
-    if (!seoInputValue) {
-      return alert.error("seoInputValue is undefined or null");
-    }
-    const { seotitle, keyword, metadec, metalink } = seoInputValue;
-    if (
-      selectedCategoryId.trim() === "" ||
-      title.trim() === "" ||
-      description.trim() === "" ||
-      slug.trim() === "" ||
-      seotitle.trim() === "" ||
-      keyword.trim() === "" ||
-      metadec.trim() === "" ||
-      metalink.trim() === ""
-    ) {
-      return alert.error("Please fill out all required fields.");
-    }
-
+    // e.preventDefault();
+    const image_url = images && images.map((item) => item.url);
+    const blog_uuid = generateUuid();
+    // if (!seoInputValue) {
+    //   return alert.error("seoInputValue is undefined or null");
+    // }
+    // const { seotitle, keyword, metadec, metalink } = seoInputValue;
+    // if (
+    //   selectedCategoryId.trim() === "" ||
+    //   title.trim() === "" ||
+    //   description.trim() === "" ||
+    //   slug.trim() === "" ||
+    //   seotitle.trim() === "" ||
+    //   keyword.trim() === "" ||
+    //   metadec.trim() === "" ||
+    //   metalink.trim() === ""
+    // ) {
+    //   return alert.error("Please fill out all required fields.");
+    // }
+    const slug = seo_input_value.seo_slug;
     dispatch(
       CreateBlogPost(
-        selectedCategoryId,
         title,
         description,
+        blog_uuid,
         slug,
-        seotitle,
-        keyword,
-        metadec,
-        metalink
+        image_url ? image_url : [],
+        sub_categorie_list ? sub_categorie_list : [],
+        categorie_list ? categorie_list : []
+      )
+    );
+    dispatch(
+      create_seo(
+        seo_input_value,
+        blog_uuid,
+        generateUuid(),
+        seo_keywords ? seo_keywords : [],
       )
     );
   };
@@ -99,11 +107,11 @@ function CreatePost() {
       dispatch(ClearError());
     }
 
-    if (success) {
-      alert.success("Product successfully created");
-      dispatch({ type: CREATE_BLOG_POST_RESET });
-      Navigate("/admin/post/all-post");
-    }
+    // if (success) {
+    //   alert.success("Product successfully created");
+    //   dispatch({ type: CREATE_BLOG_POST_RESET });
+    //   Navigate("/admin/post/all-post");
+    // }
 
     if (title) {
       setSeoInputValue((prev) => ({ ...prev, seotitle: title }));
@@ -156,9 +164,16 @@ function CreatePost() {
                           id="outlined-size-small"
                           size="small"
                           style={{ width: "100%" }}
+                          onChange={(e) => setTitle(e.target.value)}
                         />
                         <div>
-                          <Draft_wysiwyg box_class={"control-editor-content"} />
+                          <div>
+                            <Jodit_Editor
+                              height={700}
+                              getcontent={setSescription}
+                              content={description}
+                            />
+                          </div>
                         </div>
                         {/* <CK_Calssic_Editor style_editor={"content"} /> */}
 
@@ -173,9 +188,15 @@ function CreatePost() {
                     </Box>
                   </div>
                   <div className="col-md-4">
-                    <Publish_status />
-                    <Sidebar_categories />
-                    <Categore setSelectedCategoryId={setSelectedCategoryId} />
+                    <Publish_status handlePublishBut={submitHandler} />
+                    <Sidebar_categories
+                      set_sub_categorie_list={set_sub_categorie_list}
+                      categorie_list={categorie_list}
+                      set_categori_list={set_categori_list}
+                      sub_categorie_list={sub_categorie_list}
+                      cat_status={"blog-cat"}
+                    />
+                    <Categore />
                     <Tags />
                     <Featured_Image />
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GrLocationPin } from "react-icons/gr";
 import { FaRegEye } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
@@ -14,11 +14,12 @@ import {
   Checkbox,
   TextField,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllImages } from "../../actions/imageGelleryAction";
 import ImageUploaderForm from "../../admin/ImageGellery/uploadimage/ImageTabToggle";
 const Featured_Image = () => {
   const dispatch = useDispatch();
+  const { images } = useSelector((state) => state.selectedImages);
   const [open, setOpen] = useState(false);
   const handleImageClickOpen = () => {
     setOpen(true);
@@ -28,6 +29,13 @@ const Featured_Image = () => {
   const handleImageClickClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setOpen(false);
+    }
+  }, [images]);
+
   return (
     <>
       <ImageUploaderForm open={open} close={handleImageClickClose} />
@@ -56,7 +64,7 @@ const Featured_Image = () => {
                 gutterBottom
               >
                 <span
-                  onClick={()=>handleImageClickOpen()}
+                  onClick={() => handleImageClickOpen()}
                   style={{
                     textDecoration: "underline",
                     cursor: "pointer",
@@ -67,6 +75,13 @@ const Featured_Image = () => {
                   Set featured image
                 </span>
               </Typography>
+              {images &&
+                images.length>0&&images.map((item, i) => (
+                  <div key={i}>
+                    
+                      <img src={item.url} alt="jgjg" />
+                    </div>
+                ))}
             </Typography>
           </CardContent>
         </Card>

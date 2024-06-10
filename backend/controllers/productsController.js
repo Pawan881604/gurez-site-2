@@ -79,8 +79,8 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
 
   // let generalPrice = JSON.parse(general_Price);
   let variationData = JSON.parse(variation);
-  const url = await url_formet(slug);
-
+  // const url = await url_formet(slug); 
+  const uniqe_url = await generateUniqueUrl(slug, products, "slug");
   const user = req.user.id;
   let hasVariationData = Object.keys(variationData).length > 0;
   let postMetaData;
@@ -284,8 +284,8 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     category,
   } = req.body;
   // console.log(imageIds);
-  const url = await url_formet(slug);
 
+  const uniqe_url = await generateUniqueUrl(slug, products, "slug");
   function flattenArray(array) {
     return array.reduce((acc, curr) => {
       return Array.isArray(curr)
@@ -305,7 +305,7 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
       : category;
 
   const flattened_subcategory =
-    Array.isArray(subcategory) && category.length > 0
+    Array.isArray(subcategory) && subcategory.length > 0
       ? flattenArray(subcategory)
       : subcategory;
 
@@ -332,7 +332,7 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
     product_regular_price: maxPrice,
     product_sale_price: minPrice,
     Default_value,
-    slug: url,
+    slug: uniqe_url,
   };
   const updatedProduct = await products.findByIdAndUpdate(req.params.id, data, {
     new: true,
