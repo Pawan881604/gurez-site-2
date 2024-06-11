@@ -31,13 +31,15 @@ const Category = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-console.log(filter_category.length)
+  console.log(filter_category.length);
   return (
     <>
       {/* {filter_category.length === 0 ? (
         <ErrorPage />
       ) : (
         <> */}
+      {filter_category && filter_category.length > 0 ? (
+        <>
           <div className="product-cont-row shop-page product-page--">
             <div
               id="prod-cont"
@@ -65,6 +67,10 @@ console.log(filter_category.length)
             />
           )}
         </>
+      ) : (
+        <ErrorPage />
+      )}
+    </>
     //   )}
     // </>
   );

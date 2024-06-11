@@ -24,6 +24,10 @@ export const NavList = ({ toggleContentRemove }) => {
     dispatch(nav_sub_list());
   }, [dispatch]);
 
+
+  
+
+
   return (
     <>
       {!catLoading ? (
@@ -41,7 +45,7 @@ export const NavList = ({ toggleContentRemove }) => {
                   <li key={i}>
                     <div className="mob-list">
                       <span onClick={toggleContentRemove}>
-                        <NavLink to={`/product-category/${item.slug}`}>
+                        <NavLink to={`/${item.slug}`}>
                           {item.name}
                         </NavLink>
                       </span>
@@ -67,7 +71,7 @@ export const NavList = ({ toggleContentRemove }) => {
                             <li key={i}>
                               <span onClick={toggleContentRemove}>
                                 <NavLink
-                                  to={`/product-category/${item.slug}/${subItem.slug}`}
+                                  to={`/${item.slug}/${subItem.slug}`}
                                 >
                                   {subItem.name}
                                 </NavLink>

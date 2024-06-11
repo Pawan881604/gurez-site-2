@@ -14,19 +14,19 @@ const Asidebar = ({ setFilter, filter, currentPage }) => {
   const [price, setPrice] = useState([0, 1000]);
   const dispatch = useDispatch();
   const { category, subcategory } = useParams();
-
+  const [cat_id, set_cat_id] = useState("");
+  const [sub_cat_id, set_sub_cat_id] = useState("");
   const { allcategroes } = useSelector((state) => state.allCategroe);
   const { all_sub_categores } = useSelector((state) => state.sub_Categore);
 
-  const filter_category =
-    allcategroes && allcategroes.filter((item) => item.slug === category);
-  const filter_sub_category =
-    all_sub_categores &&
-    all_sub_categores.filter((item) => item.slug === subcategory);
-  const cat_id =
-    filter_category && filter_category[0] && filter_category[0]._id;
-  const sub_cat_id =
-    filter_sub_category && filter_sub_category[0] && filter_sub_category[0]._id;
+ 
+  // const filter_sub_category =
+  // all_sub_categores &&
+  //   all_sub_categores.filter((item) => item.slug === subcategory);
+  // const cat_id =
+  //   filter_category && filter_category[0] && filter_category[0]._id;
+  // const sub_cat_id =
+  //   filter_sub_category && filter_sub_category[0] && filter_sub_category[0]._id;
 
   const clearFilterHeandler = (e) => {
     // setCurrentPage(1);
@@ -78,7 +78,10 @@ const Asidebar = ({ setFilter, filter, currentPage }) => {
             </div>
             <div className="mob--cont">
               <div className="aside-price-categories aside-hr">
-                <Categories />
+                <Categories
+                  set_sub_cat_id={set_sub_cat_id}
+                  set_cat_id={set_cat_id}
+                />
               </div>
               <div className="aside-price-filter aside-hr">
                 <FilterPrice price={price} inputevent={priceHeandler} />

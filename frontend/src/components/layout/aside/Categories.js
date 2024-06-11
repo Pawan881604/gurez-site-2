@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import { useSelector, dispatch, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import {
   getAllCategories,
   get_all_sub_categories,
 } from "../../../actions/CategoreAction";
 
-const Categories = () => {
+const Categories = ({ set_sub_cat_id, set_cat_id }) => {
   const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const {
     loading: catLoading,
     allcategroes,
@@ -30,6 +31,17 @@ const Categories = () => {
     const newVisibility = [...is_visiable_sub_cat_list];
     newVisibility[index] = !newVisibility[index];
     set_is_visiable__sub_cat_list(newVisibility);
+  };
+
+  const navigate_to_sub_cat = (sub_cat_id,cat_id, slug) => {
+    set_cat_id(cat_id);
+    set_sub_cat_id(sub_cat_id);
+    Navigate(`/${slug}`);
+  };
+  const navigate_to_cat = (id, slug) => {
+    set_cat_id(id);
+    set_sub_cat_id("");
+    Navigate(`/${slug}`);
   };
   return (
     <>
@@ -54,13 +66,16 @@ const Categories = () => {
               {allcategroes &&
                 allcategroes.map((item, i) => (
                   <li key={i}>
-                    <div className="row col-md-12">
-                      <NavLink
+                    <div
+                      onClick={() => navigate_to_cat(item._id, item.slug)}
+                      className="row col-md-12"
+                    >
+                      {/* <NavLink
                         to={`/${item.slug}`}
                         className="parent-cate-list col-md-10"
-                      >
-                        {item.name}
-                      </NavLink>
+                      > */}
+                      {item.name}
+                      {/* </NavLink> */}
                       <span
                         style={{ cursor: "pointer" }}
                         className="col-md-3"
@@ -89,11 +104,20 @@ const Categories = () => {
                               sub.category_status === "Active"
                           )
                           .map((subitem, i) => (
-                            <li key={i}>
+                            <li
+                              key={i}
+                              onClick={() =>
+                                navigate_to_sub_cat(
+                                  subitem._id,
+                                  item._id,
+                                  item.slug
+                                )
+                              }
+                            >
                               {/* <NavLink
                                 to={`/product-category/${item.slug}/${subitem.slug}`}
                               > */}
-                                {subitem.name}
+                              {subitem.name}
                               {/* </NavLink> */}
                             </li>
                           ))}
