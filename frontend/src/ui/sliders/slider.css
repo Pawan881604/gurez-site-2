@@ -1,0 +1,67 @@
+#app {
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.Categorie_slider_Swiper .swiper-slide {
+  width: 250px !important;
+  padding: 0px;
+}
+.Categorie_slider_Swiper .mySwiper {
+  height: 400px !important;
+  margin-top: 10px;
+}
+.Categorie_slider_Swiper .mySwiper .MuiCard-root {
+  border-radius: 20px !important;
+}
+.Categorie_slider_Swiper .mySwiper .MuiCardMedia-root {
+  height: 230px;
+}
+.Categorie_slider_Swiper .mySwiper .css-46bh2p-MuiCardContent-root {
+  background-color: #000 !important;
+padding: 08px 15px !important;
+}
+.Categorie_slider_Swiper .mySwiper .css-46bh2p-MuiCardContent-root > div {
+  text-align: start !important;
+  color: #fff;
+}
+.swiper-slide {
+  font-size: 18px;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+}
+
+.parallax-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+}
+
+.swiper-slide .title {
+  font-size: 41px;
+  font-weight: 300;
+  color: #000;
+}
+.text p {
+  color: #000000d9;
+}
+.swiper-slide .subtitle {
+  font-size: 21px;
+}
+
+.swiper-slide .text {
+  font-size: 14px;
+  max-width: 400px;
+  line-height: 1.3;
+}

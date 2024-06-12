@@ -22,20 +22,16 @@ import Reviews from "./assets/Reviews";
 import { getProductDetails } from "../../actions/ProductAction";
 import Loader from "../../utils/loader/Loader";
 import MetaData from "../../utils/metaData/MetaData";
-import {
-  getAllCategories,
-  get_all_sub_categories,
-} from "../../actions/CategoreAction";
+import { getAllCategories } from "../../actions/CategoreAction";
 
 const ProductDetails = () => {
-  const { id, category: product_cat } = useParams();
+  const { id,category:product_cat } = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
   const Navigate = useNavigate();
   const [label, setLabel] = useState("");
 
   // //--------------- useSelector ----------------------------
-  const { allcategroes } = useSelector((state) => state.allCategroe);
   const { loding, product, error } = useSelector(
     (state) => state.productDetails
   );
@@ -86,27 +82,22 @@ const ProductDetails = () => {
     );
     Navigate("/cart");
   };
-  const filter_category =
-    allcategroes && allcategroes.filter((item) => item.slug === product_cat);
-  const cat_id =
-    filter_category && filter_category[0] && filter_category[0]._id;
-  console.log(product);
+
   useMemo(() => {
-    if (cat_id) {
-      dispatch(
-        getProductDetails("product_uuid", id, "product_category", cat_id)
-      );
-    }
-    dispatch(getAllCategories("uuid"));
-    // dispatch( dispatch(getAllCategories());("product_uuid", id,product_cat,''));
-  }, [dispatch, id, cat_id]);
+    dispatch(getProductDetails("product_uuid", id,product_cat,''));
+    // dispatch(getAllCategories("product_uuid", id,product_cat,''));
+  }, [dispatch,id]);
+  
 
   return (
     <>
-      <MetaData item_id={product && product.product_uuid} />
+      <MetaData
+
+        item_id={product && product.product_uuid}
+      />
       {loding ? (
         <Loader />
-      ) : product && product  ? (
+      ) : product && product !== null ? (
         <div className="product-page">
           <section className="section-cont prod-details-page">
             <div className="product-cont">

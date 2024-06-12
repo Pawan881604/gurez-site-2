@@ -12,24 +12,28 @@ import customTheme from "./theme/theme.config";
 const Category_MediaCard = ({ item }) => {
   return (
     <>
-      <Card sx={{ maxWidth: 345,  background:'transparent',boxShadow:'none' }}>
+      <Card
+        sx={{ maxWidth: 345, background: "transparent", boxShadow: "none",boxShadow:customTheme.themes.layout.boxShadows.bs_50 }}
+      >
         <CardMedia
           sx={{
             height: 140,
-            backgroundColor: "rgba(27,27,23,.15)",
-            backgroundSize: "contain",
-            transition: 'background-color 0.3s ease',
-            '&:hover': {
-              backgroundColor: [customTheme.themes.colors.green.green_50]
-            }
+            backgroundColor:  [customTheme.themes.colors.white],
+            backgroundSize: "80%",
+            transition: "background-color 0.3s ease",
+            "&:hover": {
+              backgroundColor: [customTheme.themes.colors.white],
+            },
           }}
-          image={item.img}
-          title={item.text}
+          image={
+            "https://www.upack.in/media/catalog/product/cache/53044a3cfd6bcac7163468e00689f8a8/u/p/upkj233p248_1.jpg"
+          }
+          title={"demo"}
         />
         <CardContent
           style={{
             padding: "10px 2px",
-            background:'transparent'
+            background: "transparent",
           }}
         >
           <Typography
@@ -42,7 +46,7 @@ const Category_MediaCard = ({ item }) => {
             }}
             component="div"
           >
-            {item.text}
+            {"demp"}
           </Typography>
         </CardContent>
         {/* <CardActions>

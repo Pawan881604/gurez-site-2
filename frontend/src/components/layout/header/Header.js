@@ -12,6 +12,17 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { MobNav } from "./assets/MobNav";
 
 import User_Status from "./assets/User_Status";
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import Navigation from "./assets/Navigation";
+import Categorie_navigation from "./assets/Categorie_navigation";
 
 export const Header = () => {
   //this state for mob nav togle
@@ -44,10 +55,41 @@ export const Header = () => {
       window.addEventListener("resize", handleResize);
     };
   }, []);
+  const navItems = ["Home", "About", "Contact"];
+  // function DrawerAppBar(props) {
+  //   const { window } = props;
+  //   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  //   const handleDrawerToggle = () => {
+  //     setMobileOpen((prevState) => !prevState);
+  //   };
   return (
     <>
-      <header className={`header sticky ${isSticky ? "sticky" : ""}`}>
+      <Box
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Box sx={{ width: "1280px", textAlign: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "10px 0",
+            }}
+          >
+            <Categorie_navigation />
+            <Logo />
+            <Navigation />
+          </Box>
+          <Divider />
+        </Box>
+      </Box>
+      {/* <header className={`header sticky ${isSticky ? "sticky" : ""}`}>
         {user && user.role === "admin" && !loading ? <AdminHeader /> : null}
 
         <>
@@ -89,7 +131,7 @@ export const Header = () => {
 
           <BottomHeader />
         </>
-      </header>
+      </header> */}
     </>
   );
 };

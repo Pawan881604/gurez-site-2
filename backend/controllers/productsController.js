@@ -219,7 +219,6 @@ exports.getSingleProduct = catchAsyncError(async (req, res, next) => {
     { path: "product_subcategory", model: "SubCategore" },
   ]);
 
-
   const Obj_product = Products[0];
 
   res.status(200).json({

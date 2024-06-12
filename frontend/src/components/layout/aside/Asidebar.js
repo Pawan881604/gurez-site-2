@@ -1,33 +1,28 @@
 import React, { useEffect, useState, memo } from "react";
 import FilterPrice from "./FilterPrice";
 import Categories from "./Categories";
-import RatingsFilter from "./RatingsFilter";
 import "./style.css";
-import ClearFilter from "./ClearFilter";
 import { Button } from "@material-ui/core";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { getProduct } from "../../../actions/ProductAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import updated_product_data from "../../../utils/Filter_product_handler";
 
 const Asidebar = ({ setFilter, filter, currentPage }) => {
   const [price, setPrice] = useState([0, 1000]);
   const dispatch = useDispatch();
-  const { category, subcategory } = useParams();
-  const [cat_id, set_cat_id] = useState("");
+  const { category } = useParams();
+
   const [sub_cat_id, set_sub_cat_id] = useState("");
+  const [cat_id, set_cat_id] = useState("");
   const { allcategroes } = useSelector((state) => state.allCategroe);
   const { all_sub_categores } = useSelector((state) => state.sub_Categore);
+  const new_cat = [...allcategroes,...all_sub_categores]
 
- 
-  // const filter_sub_category =
-  // all_sub_categores &&
-  //   all_sub_categores.filter((item) => item.slug === subcategory);
-  // const cat_id =
-  //   filter_category && filter_category[0] && filter_category[0]._id;
-  // const sub_cat_id =
-  //   filter_sub_category && filter_sub_category[0] && filter_sub_category[0]._id;
-
+  const filter_category =
+  new_cat && new_cat.filter((item) => item.slug === category);
+console.log(filter_category)
   const clearFilterHeandler = (e) => {
     // setCurrentPage(1);
     // setPrice([0, 1000]);
@@ -43,10 +38,20 @@ const Asidebar = ({ setFilter, filter, currentPage }) => {
   };
 
   useEffect(() => {
-    dispatch(
-      getProduct(currentPage, price, cat_id && cat_id, sub_cat_id && sub_cat_id)
-    );
-  }, [currentPage, price, cat_id, sub_cat_id]);
+    if (category === "shop") {
+      updated_product_data(dispatch, currentPage, price, "", "");
+    } else if (filter_category) {
+      // updated_product_data(dispatch, currentPage, price, cat_id, sub_cat_id);
+    }
+  }, [
+    dispatch,
+    currentPage,
+    price,
+    cat_id,
+    sub_cat_id,
+    category,
+    filter_category,
+  ]);
 
   return (
     <>

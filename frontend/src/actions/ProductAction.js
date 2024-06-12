@@ -137,28 +137,24 @@ export const searchProduct = (searchData) => async (dispatch) => {
   }
 };
 
-export const getProductDetails =
-  (key, id, parent_categorie, cat_id) => async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCCT_DETAILS_REQUEST });
-
-      let link = `${server_url()}/api/v1/product/single-page?${key}=${id}&${parent_categorie}=${cat_id}`;
-
-      // if (parent_categorie) {
-      //   link += `&?${parent_categorie}=${cat_id}`;
-      // }
-      const { data } = await axiosInstance.get(link, get_method());
-      dispatch({
-        type: PRODUCCT_DETAILS_SUCCESS,
-        payload: data.Product,
-      });
-    } catch (error) {
-      dispatch({
-        type: PRODUCCT_DETAILS_FAIL,
-        payload: error.response.data.message,
-      });
-    }
-  };
+export const getProductDetails = (key,id) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCCT_DETAILS_REQUEST });
+    const { data } = await axiosInstance.get(
+      `${server_url()}/api/v1/product/single-page?${key}=${id}`,
+      get_method()
+    );
+    dispatch({
+      type: PRODUCCT_DETAILS_SUCCESS,
+      payload: data.Product,
+    });
+  } catch (error) {
+    dispatch({
+      type: PRODUCCT_DETAILS_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 export const getCategorie =
   (currentPage = 1, price = [0, 1000], categorie, ratings) =>

@@ -45,12 +45,8 @@ class ApiFetures {
       queryCopy.seo_link = { $regex: queryCopy.seo_link, $options: "i" };
     }
     // single product filter using url
-    if (queryCopy.product_uuid && queryCopy.product_category) {
-      // queryCopy.product_uuid = { $regex: queryCopy.product_uuid, $options: "i" };
-      this.query = this.query.find({ 
-        product_uuid: queryCopy.product_uuid,
-        product_category: queryCopy.product_category
-      });
+    if (queryCopy.product_uuid) {
+      queryCopy.product_uuid = { $regex: queryCopy.product_uuid, $options: "i" };
     }
     // Filter price and ratings
     let queryStr = JSON.stringify(queryCopy);

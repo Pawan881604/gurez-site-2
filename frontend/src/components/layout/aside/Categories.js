@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { useSelector, dispatch, useDispatch } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
 import {
   getAllCategories,
   get_all_sub_categories,
 } from "../../../actions/CategoreAction";
+import updated_product_data from "../../../utils/Filter_product_handler";
 
 const Categories = ({ set_sub_cat_id, set_cat_id }) => {
   const dispatch = useDispatch();
@@ -32,17 +33,17 @@ const Categories = ({ set_sub_cat_id, set_cat_id }) => {
     newVisibility[index] = !newVisibility[index];
     set_is_visiable__sub_cat_list(newVisibility);
   };
+  const currentPage = 1;
+  const price = [0, 1000];
+  const navigate_sub_cat_handler = (cat_id, sub_cat_id, slug) => {
+    updated_product_data(dispatch, currentPage, price, cat_id, sub_cat_id);
+    Navigate(`/${slug}`);
+  };
+  const navigate_cat_handler = (cat_id, slug) => {
+    updated_product_data(dispatch, currentPage, price, cat_id, "");
+    Navigate(`/${slug}`);
+  };
 
-  const navigate_to_sub_cat = (sub_cat_id,cat_id, slug) => {
-    set_cat_id(cat_id);
-    set_sub_cat_id(sub_cat_id);
-    Navigate(`/${slug}`);
-  };
-  const navigate_to_cat = (id, slug) => {
-    set_cat_id(id);
-    set_sub_cat_id("");
-    Navigate(`/${slug}`);
-  };
   return (
     <>
       <div className="category-containor">
@@ -67,7 +68,7 @@ const Categories = ({ set_sub_cat_id, set_cat_id }) => {
                 allcategroes.map((item, i) => (
                   <li key={i}>
                     <div
-                      onClick={() => navigate_to_cat(item._id, item.slug)}
+                      onClick={() => navigate_cat_handler(item._id, item.slug)}
                       className="row col-md-12"
                     >
                       {/* <NavLink
@@ -107,15 +108,15 @@ const Categories = ({ set_sub_cat_id, set_cat_id }) => {
                             <li
                               key={i}
                               onClick={() =>
-                                navigate_to_sub_cat(
-                                  subitem._id,
+                                navigate_sub_cat_handler(
                                   item._id,
-                                  item.slug
+                                  subitem._id,
+                                  subitem.slug
                                 )
                               }
                             >
                               {/* <NavLink
-                                to={`/product-category/${item.slug}/${subitem.slug}`}
+                                to={`/${item.slug}/${subitem.slug}`}
                               > */}
                               {subitem.name}
                               {/* </NavLink> */}

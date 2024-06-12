@@ -41,11 +41,9 @@ import PrivacyPolicy from "./site/PrivacyPolicy";
 import TermsAndConditions from "./site/TermsAndConditions";
 import Otpverification from "./site/user/Otpverification";
 import ErrorPage from "./site/404Page/ErrorPage";
-import ErrorBoundary from "./utils/ErrorBoundary";
 import ForgetPassword from "./site/user/ForgetPassword";
 import ResetPassword from "./site/user/ResetPassword";
 import WishList from "./site/wishlist/WishList";
-import Category from "./site/shop/category/Category";
 import ContactUs from "./site/contact us/ContactUs";
 import Producttracking from "./components/tracking/Producttracking";
 import Ordercancel from "./components/tracking/Ordercancel";
@@ -75,13 +73,13 @@ import GetContactDetails from "./admin/contact/GetContactDetails";
 import UserDashboard from "./site/account/UserDashboard";
 // UserDashboard
 import CouponUpdate from "./admin/marketing/update/CoupenUpdate ";
-import SubCategory from "./site/shop/subcategory/SubCategory";
 import Login_Form from "./site/user/Login_Form";
 import SignUp_Form from "./site/user/SignUp_Form";
 import Banners from "./admin/Home/banners/Banners";
 import Add_New_Banner from "./admin/Home/banners/Add_New_Banner";
 import Index from "./site/Index";
 import Loader from "./utils/loader/Loader";
+import Volume_range_unit from "./admin/products/volume_range_unit/Volume_range_unit";
 // SignUp_Form
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -119,20 +117,20 @@ function App() {
                 <Route path="/sign-in" element={<Login_Form />} />
                 <Route path="/sing-up" element={<SignUp_Form />} />
                 <Route path="/contact-us" element={<ContactUs />} />
-                <Route path="/shop" element={<Shop />} />
+                <Route path="/:category" element={<Shop />} />
                 <Route
                   path="/user-dashboard"
                   element={<ProtectedRoute Component={UserDashboard} />}
                 />
-                <Route
+                {/* <Route
                   path="/:category"
                   element={<Category />}
-                />
-                 <Route
+                /> */}
+                {/* <Route
                   path="/product-category/:category/:subcategory"
                   element={<SubCategory />}
-                />
-                 <Route
+                /> */}
+                <Route
                   path="/:category/:id"
                   element={
                     // <ErrorBoundary>
@@ -149,7 +147,17 @@ function App() {
                     />
                   }
                 />
-               
+                
+                <Route
+                  path="/admin/product/add-volume"
+                  element={
+                    <ProtectedRoute
+                      isAdmin={true}
+                      Component={Volume_range_unit}
+                    />
+                  }
+                />
+
                 <Route path="/wishlist" element={<WishList />} />
                 <Route path="/otp-verification" element={<Otpverification />} />
                 <Route path="/forget-password" element={<ForgetPassword />} />
@@ -163,8 +171,6 @@ function App() {
                   element={<BlogCategoryPage />}
                 />
                 <Route path="/blog/:id" element={<SingleBlog />} />
-
-               
 
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/editor" element={<Editor />} />

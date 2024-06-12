@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, getAllorders } from "../../actions/OrderAction";
 import Logo from "../../components/layout/header/assets/Logo";
 
-
 export const Aside = () => {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -104,11 +103,15 @@ export const Aside = () => {
                   <NavLink to={"/admin/create-product"}>
                     <TreeItem nodeId="2" label="Create" />
                   </NavLink>
+                 
                   <NavLink to={"/admin/categorie"}>
                     <TreeItem nodeId="2" label="Categorie" />
                   </NavLink>
                   <NavLink to={"/admin/product-attribute"}>
                     <TreeItem nodeId="2" label="Attribute" />
+                  </NavLink>
+                  <NavLink to={"/admin/product/add-volume"}>
+                    <TreeItem nodeId="2" label="Volume range unit" />
                   </NavLink>
                 </TreeItem>
               </TreeView>

@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-import { nav_main_list,nav_sub_list } from "../../../../actions/CategoreAction";
+import {
+  nav_main_list,
+  nav_sub_list,
+} from "../../../../actions/CategoreAction";
+import updated_product_data from "../../../../utils/Filter_product_handler";
 
 export const NavList = ({ toggleContentRemove }) => {
   const [visible, setVisible] = useState(null);
-
+  const Navigate = useNavigate();
   const handleClick = (i) => {
     setVisible((prevVisible) => (prevVisible === i ? null : i));
   };
@@ -24,9 +28,17 @@ export const NavList = ({ toggleContentRemove }) => {
     dispatch(nav_sub_list());
   }, [dispatch]);
 
+  const currentPage = 1;
+  const price = [0, 1000];
+  const navigate_sub_cat_handler = (cat_id, sub_cat_id, slug) => {
+    updated_product_data(dispatch, currentPage, price, cat_id, sub_cat_id);
+    Navigate(`/${slug}`);
+  };
+  const navigate_cat_handler = (cat_id, slug) => {
 
-  
-
+    updated_product_data(dispatch, currentPage, price, cat_id, "");
+    Navigate(`/${slug}`);
+  };
 
   return (
     <>
@@ -44,10 +56,15 @@ export const NavList = ({ toggleContentRemove }) => {
                 .map((item, i) => (
                   <li key={i}>
                     <div className="mob-list">
-                      <span onClick={toggleContentRemove}>
-                        <NavLink to={`/${item.slug}`}>
-                          {item.name}
-                        </NavLink>
+                      <span
+                        // onClick={toggleContentRemove}
+                        onClick={() =>
+                          navigate_cat_handler(item._id, item.slug)
+                        }
+                      >
+                        {/* <NavLink to={`/product-category/${item.slug}`}> */}
+                        {item.name}
+                        {/* </NavLink> */}
                       </span>
                       <span onClick={() => handleClick(i)}>
                         {visible === i ? <IoIosArrowUp /> : <IoIosArrowDown />}
@@ -69,12 +86,21 @@ export const NavList = ({ toggleContentRemove }) => {
                           )
                           .map((subItem, i) => (
                             <li key={i}>
-                              <span onClick={toggleContentRemove}>
-                                <NavLink
-                                  to={`/${item.slug}/${subItem.slug}`}
-                                >
-                                  {subItem.name}
-                                </NavLink>
+                              <span
+                                // onClick={toggleContentRemove}
+                                onClick={() =>
+                                  navigate_sub_cat_handler(
+                                    item._id,
+                                    subItem._id,
+                                    subItem.slug
+                                  )
+                                }
+                              >
+                                {/* <NavLink
+                                  to={`/product-category/${item.slug}/${subItem.slug}`}
+                                > */}
+                                {subItem.name}
+                                {/* </NavLink> */}
                               </span>
                             </li>
                           ))}
