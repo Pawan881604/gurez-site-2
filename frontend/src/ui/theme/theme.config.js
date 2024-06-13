@@ -18,6 +18,8 @@ const customTheme = {
       boxShadows: {
         bs_50:
           "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+        bs_100:
+          "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
       },
       fontSize: {
         tiny: "0.75rem",
@@ -26,7 +28,7 @@ const customTheme = {
         large: "1.125rem",
       },
       padding: {
-        screen_large: "80px 15px",
+        screen_large: "40px 10px",
       },
       lineHeight: {
         tiny: "1rem",
@@ -48,12 +50,16 @@ const customTheme = {
     colors: {
       white: "#FFFFFF",
       black: "#000000",
-      green: {
-        green_50: "#EDEEC9",
-        green_100: "#DDE7C7",
-        green_200: "#BFD8BD",
-        green_300: "#98C9A3",
-        green_400: "#77BFA3",
+      default: {
+        default_50: "#EDEEC9",
+        default_100: "#ffe4c2",
+        // green_200: "#BFD8BD",
+        // green_300: "#98C9A3",
+        // green_400: "#77BFA3",
+        // green_100: "#DDE7C7",#ffe4c2
+        // green_200: "#BFD8BD",
+        // green_300: "#98C9A3",
+        // green_400: "#77BFA3",
       },
       Zinc: {
         50: "#FAFAFA",

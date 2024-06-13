@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   FormControl,
   FormControlLabel,
@@ -7,6 +8,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import customTheme from "../ui/theme/theme.config";
@@ -14,9 +16,9 @@ import customTheme from "../ui/theme/theme.config";
 export const Filter_size_form = () => {
   const [unit_type, set_unit_type] = useState("");
   const [input_value, set_input_value] = useState({
-    L_inch: "",
-    W_inch: "",
-    H_inch: "",
+    Length: "",
+    Breadth: "",
+    Height: "",
     Type: "Corrugated box",
   });
 
@@ -262,14 +264,14 @@ export const Filter_size_form = () => {
 
   useEffect(() => {
     const filterProducts = () => {
-      const { L_inch, W_inch, H_inch, Type } = input_value;
-      const length = parseFloat(L_inch) || 0;
-      const width = parseFloat(W_inch) || 0;
-      const height = parseFloat(H_inch) || 0;
+      const { Length, Breadth, Height, Type } = input_value;
+      const length = parseFloat(Length) || 0;
+      const width = parseFloat(Breadth) || 0;
+      const height = parseFloat(Height) || 0;
 
       const area = length + width;
       const area_2 = width + height;
-      const sum = (area * 2) * area_2;
+      const sum = area * 2 * area_2;
 
       const filtered = Products.filter((product) => {
         const productLength = parseFloat(product.size.l) || 0;
@@ -278,8 +280,8 @@ export const Filter_size_form = () => {
 
         const value = productLength + productWidth;
         const value_2 = productWidth + productHeight;
-        const value_sum = (value * 2) * value_2;
-        console.log(productLength,productWidth,productHeight)
+        const value_sum = value * 2 * value_2;
+        console.log(productLength, productWidth, productHeight);
         // Compare calculated sums
         return value_sum >= sum;
       });
@@ -292,154 +294,141 @@ export const Filter_size_form = () => {
 
   return (
     <>
-      <div>
+      <div
+        style={{
+          background: [customTheme.themes.colors.default.default_100],
+          boxShadow: [customTheme.themes.layout.boxShadows.bs_100],
+        }}
+      >
         <Container
-          maxWidth="sm"
+          maxWidth="lg"
           style={{
-            maxWidth: [customTheme.screens.lg],
             padding: [customTheme.themes.layout.padding.screen_large],
           }}
         >
+          <Typography component={"h2"}>Box Finder</Typography>
           <Box
+            component="form"
+            noValidate
             sx={{
-              marginTop: 0,
+              maxWidth: [customTheme.screens.lg],
+              mt: 1,
               display: "flex",
-              alignItems: "center",
-              autoComplete: "on",
-              // boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+              alignItems: "center", // Align items in the center
+              justifyContent: "center", // Justify content in the center
+              gap: 2, // Add some spacing between children
             }}
           >
-            <img src="https://www.upack.in/media/wysiwyg/size_lbh.webp" />
-            <Box>
-              <FormControl>
-                <FormLabel size="small" id="demo-radio-buttons-group-label">
-                  Unit
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="Inch"
-                  size="small"
-                  onChange={(e) => set_unit_type(e.target.value)}
-                  name="radio-buttons-group"
-                >
-                  <FormControlLabel
-                    value="Inch"
-                    size="small"
-                    control={<Radio />}
-                    label="Inch"
-                  />
-                  <FormControlLabel
-                    value="Centimetre"
-                    size="small"
-                    control={<Radio />}
-                    label="Centimetre"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <Box
-                component="form"
-                noValidate
-                sx={{
-                  mt: 1,
-                  display: "flex",
-                  alignItems: "center", // Align items in the center
-                  justifyContent: "center", // Justify content in the center
-                  gap: 2, // Add some spacing between children
-                }}
-              >
-                <TextField
-                  margin="normal"
-                  type="text"
-                  size="small"
-                  fullWidth
-                  label="L inch"
-                  name="L_inch"
-                  autoComplete="L_inch"
-                  autoFocus
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "0.8rem", // Adjust the size as needed
-                      paddingTop: "4px",
-                    },
-                  }}
-                  value={input_value.L_inch}
-                  onChange={(e) => change_input_handler(e)}
-                />
-                <TextField
-                  margin="normal"
-                  type="text"
-                  fullWidth
-                  id="W_inch"
-                  label="W inch"
-                  size="small"
-                  name="W_inch"
-                  autoComplete="W_inch"
-                  autoFocus
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "0.8rem", // Adjust the size as needed
-                      paddingTop: "4px",
-                    },
-                  }}
-                  value={input_value.W_inch}
-                  onChange={(e) => change_input_handler(e)}
-                />
-                <TextField
-                  margin="normal"
-                  type="text"
-                  fullWidth
-                  label="H inch"
-                  name="H_inch"
-                  size="small"
-                  autoComplete="H_inch"
-                  autoFocus
-                  InputLabelProps={{
-                    sx: {
-                      fontSize: "0.8rem", // Adjust the size as needed
-                      paddingTop: "4px",
-                    },
-                  }}
-                  value={input_value.H_inch}
-                  onChange={(e) => change_input_handler(e)}
-                />
-                <TextField
-                  margin="normal"
-                  required
+            <TextField
+              margin="normal"
+              type="text"
+              size="small"
+              fullWidth
+              label="Length"
+              name="Length"
+              autoComplete="Length"
+              sx={{ background: customTheme.themes.colors.white }}
+              autoFocus
+              InputLabelProps={{
+                sx: {
+                  fontSize: "0.8rem", // Adjust the size as needed
+                  paddingTop: "4px",
+                },
+              }}
+              value={input_value.Length}
+              onChange={(e) => change_input_handler(e)}
+            />
+            <TextField
+              margin="normal"
+              type="text"
+              fullWidth
+              id="Breadth"
+              label="Breadth"
+              size="small"
+              name="Breadth"
+              sx={{ background: customTheme.themes.colors.white }}
+              autoComplete="Breadth"
+              autoFocus
+              InputLabelProps={{
+                sx: {
+                  fontSize: "0.8rem", // Adjust the size as needed
+                  paddingTop: "4px",
+                },
+              }}
+              value={input_value.Breadth}
+              onChange={(e) => change_input_handler(e)}
+            />
+            <TextField
+              margin="normal"
+              type="text"
+              fullWidth
+              label="Height"
+              name="Height"
+              sx={{ background: customTheme.themes.colors.white }}
+              size="small"
+              autoComplete="Height"
+              autoFocus
+              InputLabelProps={{
+                sx: {
+                  fontSize: "0.8rem", // Adjust the size as needed
+                  paddingTop: "4px",
+                },
+              }}
+              value={input_value.Height}
+              onChange={(e) => change_input_handler(e)}
+            />
+            <TextField
+              margin="normal"
+              required
+              sx={{ background: customTheme.themes.colors.white }}
+              style={{
+                fontSize: [customTheme.themes.layout.fontSize.tiny], // Adjust the size as needed
+                paddingTop: "4px",
+              }}
+              fullWidth
+              select
+              //  style={{ width: "50%", paddingRight: 5 }}
+              label="Type"
+              name="Type"
+              defaultValue="Corrugated box"
+              size="small"
+              value={input_value.Type}
+              onChange={(e) => change_input_handler(e)}
+              SelectProps={{
+                native: true,
+              }}
+            >
+              {currencies.map((option) => (
+                <option
                   style={{
                     fontSize: [customTheme.themes.layout.fontSize.tiny], // Adjust the size as needed
                     paddingTop: "4px",
                   }}
-                  fullWidth
-                  select
-                  //  style={{ width: "50%", paddingRight: 5 }}
-                  label="Type"
-                  name="Type"
-                  defaultValue="Corrugated box"
-                  size="small"
-                  value={input_value.Type}
-                  onChange={(e) => change_input_handler(e)}
-                  SelectProps={{
-                    native: true,
-                  }}
+                  key={option.value}
+                  value={option.value}
                 >
-                  {currencies.map((option) => (
-                    <option
-                      style={{
-                        fontSize: [customTheme.themes.layout.fontSize.tiny], // Adjust the size as needed
-                        paddingTop: "4px",
-                      }}
-                      key={option.value}
-                      value={option.value}
-                    >
-                      {option.value}
-                    </option>
-                  ))}
-                </TextField>
-              </Box>
-            </Box>
+                  {option.value}
+                </option>
+              ))}
+            </TextField>
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: 1,
+                padding: "5px 15px",
+                backgroundColor: "#354200",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                  color: "#354200",
+                  border: "1px solid #354200",
+                },
+              }}
+            >
+              SEARCH
+            </Button>
           </Box>
 
-          <Box>
+          {/* <Box>
             {filteredProducts.length}
             {filteredProducts.map((product, index) => (
               <Box key={index} sx={{ margin: 2 }}>
@@ -452,7 +441,7 @@ export const Filter_size_form = () => {
                 </p>
               </Box>
             ))}
-          </Box>
+          </Box> */}
         </Container>
       </div>
     </>

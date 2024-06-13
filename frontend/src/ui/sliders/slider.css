@@ -12,7 +12,6 @@
   padding: 0px;
 }
 .Categorie_slider_Swiper .mySwiper {
-  height: 400px !important;
   margin-top: 10px;
 }
 .Categorie_slider_Swiper .mySwiper .MuiCard-root {
@@ -23,7 +22,7 @@
 }
 .Categorie_slider_Swiper .mySwiper .css-46bh2p-MuiCardContent-root {
   background-color: #000 !important;
-padding: 08px 15px !important;
+  padding: 08px 15px !important;
 }
 .Categorie_slider_Swiper .mySwiper .css-46bh2p-MuiCardContent-root > div {
   text-align: start !important;

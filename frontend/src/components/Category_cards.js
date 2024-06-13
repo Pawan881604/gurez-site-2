@@ -108,7 +108,8 @@ const Category_cards = () => {
     <>
       <div
         style={{
-          background: [customTheme.themes.colors.green.green_100],
+          background: [customTheme.themes.colors.default.default_100],
+          padding: [customTheme.themes.layout.padding.screen_large],
         }}
       >
         <Container
