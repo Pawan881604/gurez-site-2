@@ -10,7 +10,7 @@ const Banner = ({ title,img }) => {
         style={{
           maxWidth: [customTheme.screens.lg],
           padding: [customTheme.themes.layout.padding.screen_large],
-        }}
+        }}        
       >
         <Typography component={"H2"}>{title}</Typography>
 
